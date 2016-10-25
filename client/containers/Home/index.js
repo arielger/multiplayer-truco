@@ -1,13 +1,13 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { Link } from 'react-router';
+import { VisibleGameList } from '../';
 
-const GameList = () =>
+const Home = () =>
   <div>
     <h1>Truco</h1>
-
     <Link to="/crear-partida"><button>Crear nueva partida</button></Link>
-    <h3>Lista de partidas</h3>
 
+    <VisibleGameList />
   </div>;
 
-export default GameList;
+export default Home;
