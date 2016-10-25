@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
-import { HashRouter, Match, Miss, Link } from 'react-router';
+import { BrowserRouter, Match, Miss, Link } from 'react-router';
 import { Home, CreateGame, GameList } from '../';
 
-console.log('HashRouter', HashRouter);
-console.log('Match', Match);
-console.log('Link', Link);
-console.log('Home', Home);
-console.log('CreateGame', CreateGame);
-console.log('GameList', GameList);
-
 const App = () =>
-  <HashRouter basename="/">
+  <BrowserRouter>
     <div>
       <ul>
         <li><Link to="/">Home</Link></li>
@@ -21,6 +14,6 @@ const App = () =>
       <Match pattern="/create-game" component={CreateGame} />
       <Match pattern="/game-list" component={GameList} />
     </div>
-  </HashRouter>;
+  </BrowserRouter>;
 
 export default App;
