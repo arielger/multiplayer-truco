@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 const GameList = ({ games }) =>
   <ul>
-    <li>Juego 1</li>
-    <li>Juego 2</li>
-    <li>Juego 3</li>
-    <li>Juego 4</li>
-    <li>Juego 5</li>
+    { games.map(game =>
+      <li>
+        Usuarios: {game.config.users}
+        A {game.config.points} puntos
+        {game.config.flor ? 'Con' : 'Sin'} flor
+      </li>
+    ) }
   </ul>;
+
+GameList.propTypes = {
+  games: PropTypes.arrayOf(PropTypes.object)
+};
 
 export default GameList;
