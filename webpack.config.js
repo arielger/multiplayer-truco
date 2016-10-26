@@ -13,6 +13,11 @@ var config = {
         test: /\.js$/,
         exclude: /node_modules/,
         loaders: ['babel']
+      },
+      {
+        test: /\.sass$/,
+        exclude: /node_modules/,
+        loaders: ['style', 'css', 'sass']
       }
     ]
   },
