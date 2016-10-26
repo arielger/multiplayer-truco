@@ -23,6 +23,8 @@
     "babel-preset-stage-0": "^6.16.0",
     "eslint": "^3.8.1",
     "express": "^4.14.0",
+    "firebase": "^3.5.2",
+    "json-loader": "^0.5.4",
     "re-base": "^2.2.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",

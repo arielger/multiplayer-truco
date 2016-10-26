@@ -1,6 +1,7 @@
 const testData = [
   {
     config: {
+      key: 1,
       users: 4,
       points: 30,
       flor: true
@@ -8,6 +9,7 @@ const testData = [
   },
   {
     config: {
+      key: 2,
       users: 2,
       points: 15,
       flor: false
@@ -15,6 +17,7 @@ const testData = [
   },
   {
     config: {
+      key: 3,
       users: 3,
       points: 15,
       flor: true
