@@ -1,18 +1,6 @@
 import React, { PropTypes } from 'react';
-import Rebase from 're-base';
 import { Link } from 'react-router';
-
-import firebaseConfig from '../../../firebase.json';
-
-const { apiKey, authDomain, databaseURL, storageBucket } = firebaseConfig;
-
-// Pass firebase configuration to re-base setup
-const base = Rebase.createClass({
-  apiKey,
-  authDomain,
-  databaseURL,
-  storageBucket
-});
+import { gamesActions } from '../../actions/'
 
 class CreateGame extends React.Component {
   constructor() {
@@ -21,22 +9,29 @@ class CreateGame extends React.Component {
     this.addGame = this.addGame.bind(this);
   }
   addGame() {
-    debugger;
-    const gameName = this.gameNameInput.value;
-    const players = this.playersInput.value;
-    base.push('games', {
-      data: { gameName, players },
-      then(err) {
-        console.log(err);
+    const game = {
+      config: {
+        name: this.gameNameInput.value,
+        players: this.playersInput.value,
+        flor: this.florCheckbox.checked
       }
-    });
+    };
+    gamesActions.createGame(game);
   }
   render() {
     return (
-      <div>
+      <div className="container">
         <h1>Crear partida</h1>
-        <input ref={node => (this.gameNameInput = node)} type="text" placeholder="game name" />
-        <input ref={node => (this.playersInput = node)} type="number" placeholder="players" />
+
+        <label htmlFor="game-name-input">Nombre de la partida</label><br/>
+        <input id="game-name-input" ref={node => (this.gameNameInput = node)} type="text" /><br/>
+
+        <label htmlFor="players-count-input">Cantidad de usuarios</label><br/>
+        <input id="players-count-input" ref={node => (this.playersInput = node)} type="number" /><br/>
+
+        <label htmlFor="flor-checkbox">Con flor</label><br/>
+        <input id="flor-checkbox" ref={node => (this.florCheckbox = node)} type="checkbox" /><br/>
+
         <button onClick={this.addGame}>Agregar partida</button>
         <Link to="/"><button>Cancelar</button></Link>
       </div>

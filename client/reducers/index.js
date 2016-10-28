@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import gameList from './gameList';
+import games from './games';
 
 const trucoApp = combineReducers({
-  gameList
+  games
 });
 
 export default trucoApp;

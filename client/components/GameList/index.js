@@ -1,18 +1,36 @@
 import React, { PropTypes } from 'react';
+import './index.sass';
 
-const GameList = ({ games }) =>
-  <ul>
-    { games.map(game =>
-      <li key={game.config.key}>
-        Usuarios: {game.config.users}
-        A {game.config.points} puntos
-        {game.config.flor ? 'Con' : 'Sin'} flor
-      </li>
-    ) }
-  </ul>;
+class GameList extends React.Component {
+  componentDidMount() {
+    this.props.fetchGames();
+  }
+  render() {
+    return (
+      <ul className="game-list row">
+        { this.props.games.map((game) => {
+          const { name, users, flor } = game.config;
+          return (
+            <div className="col-xs-6">
+              <li className="game-list-item">
+                <div className="game-avatar" />
+                <div className="item-content">
+                  Nombre: {name}
+                  Usuarios: {users}
+                  Flor: {flor}
+                </div>
+              </li>
+            </div>
+          );
+        }) }
+      </ul>
+    );
+  }
+}
 
 GameList.propTypes = {
-  games: PropTypes.arrayOf(PropTypes.object)
+  games: PropTypes.arrayOf(PropTypes.object).isRequired,
+  fetchGames: PropTypes.func.isRequired
 };
 
 export default GameList;
