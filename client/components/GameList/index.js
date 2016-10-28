@@ -14,10 +14,28 @@ class GameList extends React.Component {
             <div className="col-xs-6">
               <li className="game-list-item">
                 <div className="game-avatar" />
-                <div className="item-content">
-                  Nombre: {name}
-                  Usuarios: {users}
-                  Flor: {flor}
+                <div className="item-content row">
+                  <div className="col-xs-6">
+                    <span className="item-info-label">Jugadores</span>
+                    <div className="game-players-wrapper">
+                      <div className="game-player"></div>
+                      <div className="game-player"></div>
+                      <div className="game-player"></div>
+                      <div className="game-player"></div>
+                    </div>
+                  </div>
+                  <div className="col-xs-6">
+                    <span className="item-info-label">Con flor</span>
+                    <span className="item-info-content">SI</span>
+                  </div>
+                  <div className="col-xs-6">
+                    <span className="item-info-label">Puntos</span>
+                    <span className="item-info-content">30 PTOS.</span>
+                  </div>
+                  <div className="col-xs-6">
+                    <span className="item-info-label">Tiempo de espera</span>
+                    <span className="item-info-content">30 SEG.</span>
+                  </div>
                 </div>
               </li>
             </div>

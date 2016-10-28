@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import { gamesActions } from '../../actions/'
+import { Modal } from '../../components/';
 
 class CreateGame extends React.Component {
   constructor() {
@@ -20,21 +21,23 @@ class CreateGame extends React.Component {
   }
   render() {
     return (
-      <div className="container">
-        <h1>Crear partida</h1>
+      <Modal>
+        <div className="container">
+          <h1>Crear partida</h1>
 
-        <label htmlFor="game-name-input">Nombre de la partida</label><br/>
-        <input id="game-name-input" ref={node => (this.gameNameInput = node)} type="text" /><br/>
+          <label htmlFor="game-name-input">Nombre de la partida</label><br />
+          <input id="game-name-input" ref={node => (this.gameNameInput = node)} type="text" /><br />
 
-        <label htmlFor="players-count-input">Cantidad de usuarios</label><br/>
-        <input id="players-count-input" ref={node => (this.playersInput = node)} type="number" /><br/>
+          <label htmlFor="players-count-input">Cantidad de usuarios</label><br />
+          <input id="players-count-input" ref={node => (this.playersInput = node)} type="number" /><br />
 
-        <label htmlFor="flor-checkbox">Con flor</label><br/>
-        <input id="flor-checkbox" ref={node => (this.florCheckbox = node)} type="checkbox" /><br/>
+          <label htmlFor="flor-checkbox">Con flor</label><br />
+          <input id="flor-checkbox" ref={node => (this.florCheckbox = node)} type="checkbox" /><br />
 
-        <button onClick={this.addGame}>Agregar partida</button>
-        <Link to="/"><button>Cancelar</button></Link>
-      </div>
+          <button onClick={this.addGame}>Agregar partida</button>
+          <Link to="/"><button>Cancelar</button></Link>
+        </div>
+      </Modal>
     );
   }
 }

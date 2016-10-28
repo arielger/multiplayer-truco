@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import { VisibleGameList } from '../';
+import { CreateGame, VisibleGameList } from '../';
 import './index.sass';
 
-const Home = () =>
+const Home = ({ createGame }) =>
   <div className="container">
+    { createGame && <CreateGame /> }
     <div className="home-container">
       <div className="home-header">
         <h1>TRUCO</h1>
       </div>
       <div className="home-filters end-xs">
-        <div className="filters-content"></div>
+        <div className="filters-content" />
         <Link to="/crear-partida">
           <button className="btn">Crear nueva partida</button>
         </Link>
@@ -18,5 +19,9 @@ const Home = () =>
       <VisibleGameList />
     </div>
   </div>;
+
+Home.propTypes = {
+  createGame: PropTypes.bool
+};
 
 export default Home;

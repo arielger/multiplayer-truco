@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { BrowserRouter, Match } from 'react-router';
-import { Home, CreateGame } from '../';
+import { Home } from '../';
 import './index.sass';
 
 class App extends Component {
@@ -9,7 +9,7 @@ class App extends Component {
       <BrowserRouter>
         <div>
           <Match exactly pattern="/" component={Home} />
-          <Match pattern="/crear-partida" component={CreateGame} />
+          <Match pattern="/crear-partida" render={() => <Home createGame />} />
         </div>
       </BrowserRouter>
     );

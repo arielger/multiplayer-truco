@@ -9,7 +9,7 @@
     border-radius: 3px
     margin-bottom: 20px
     position: relative
-    height: 115px
+    height: 135px
     cursor: pointer
     transition: all 0.2s ease-out
 
@@ -19,7 +19,7 @@
 
     .game-avatar
       position: absolute
-      top: 20px
+      top: 30px
       left: 20px
       width: 75px
       height: 75px
@@ -29,8 +29,29 @@
 
     .item-content
       position: absolute
-      top: 20px
+      top: 30px
       right: 20px
-      bottom: 20px
+      bottom: 30px
       left: 0
       margin-left: 115px
+
+      .game-players-wrapper > .game-player
+        display: inline-block
+        width: 24px
+        height: 24px
+        border-radius: 50%
+        margin-right: 6px
+        background-color: rgba(black, 0.2)
+
+      .item-info-label
+        display: block
+        letter-spacing: 1px
+        font-size: 11px
+        margin-bottom: 4px
+        text-transform: uppercase
+        color: rgba(black, 0.75)
+
+      .item-info-content
+        display: block
+        font-weight: 600
+        color: rgba(black, 0.9)
