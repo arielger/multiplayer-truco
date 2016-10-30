@@ -24,7 +24,3 @@ export function fetchGames() {
 export function createGame(game) {
   return gamesRef.push(game);
 }
-
-// export function deleteGame(gameId) {
-//
-// }

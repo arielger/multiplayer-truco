@@ -1,44 +1,30 @@
-import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import store from '../../';
+import React, { PropTypes } from 'react';
+import ReactModal from 'react-modal';
 import './index.sass';
 
-class Modal extends Component {
-  componentDidMount() {
-    this.modalTarget = document.createElement('div');
-    this.modalTarget.className = 'modal';
-    document.body.appendChild(this.modalTarget);
-    this._render();
-  }
+class Modal extends React.Component {
+  constructor() {
+    super();
 
-  componentWillUpdate() {
-    this._render();
+    ReactModal.setAppElement('body');
   }
-
-  componentWillUnmount() {
-    ReactDOM.unmountComponentAtNode(this.modalTarget);
-    document.body.removeChild(this.modalTarget);
-  }
-
-  _render() {
-    ReactDOM.render(
-      <Provider store={store}>
-        <div>
-          <div className="modal-shadow" />
-          <div className="modal-content">{this.props.children}</div>
-        </div>
-      </Provider>,
-      this.modalTarget
-    );
-  }
-
   render() {
-    return <noscript />;
+    const { isOpen, children } = this.props;
+    return (
+      <ReactModal
+        isOpen={isOpen}
+        className="modal-content"
+        overlayClassName="modal-overlay"
+        {...this.props}
+      >
+        {children}
+      </ReactModal>
+    );
   }
 }
 
 Modal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
   children: PropTypes.node.isRequired
 };
 

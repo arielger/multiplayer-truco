@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter, Match } from 'react-router';
 import { Home } from '../';
 import './index.sass';
@@ -8,7 +8,8 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div>
-          <Match exactly pattern="/" component={Home} />
+          <div className="modals-container" />
+          <Match exactly pattern="/" render={() => <Home />} />
           <Match pattern="/crear-partida" render={() => <Home createGame />} />
         </div>
       </BrowserRouter>

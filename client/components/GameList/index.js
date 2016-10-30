@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import _ from 'lodash';
 import './index.sass';
 
 class GameList extends React.Component {
@@ -9,32 +10,32 @@ class GameList extends React.Component {
     return (
       <ul className="game-list row">
         { this.props.games.map((game) => {
-          const { name, users, flor } = game.config;
+          const { players, flor, points, waitingTime } = game.config;
           return (
             <div className="col-xs-6">
               <li className="game-list-item">
                 <div className="game-avatar" />
                 <div className="item-content row">
                   <div className="col-xs-6">
-                    <span className="item-info-label">Jugadores</span>
+                    <span className="item-info-label">
+                      Jugadores
+                      <span className="item-players-count"> (x/{players})</span>
+                    </span>
                     <div className="game-players-wrapper">
-                      <div className="game-player"></div>
-                      <div className="game-player"></div>
-                      <div className="game-player"></div>
-                      <div className="game-player"></div>
+                      { _.times(players, () => <div className="game-player" />) }
                     </div>
                   </div>
                   <div className="col-xs-6">
                     <span className="item-info-label">Con flor</span>
-                    <span className="item-info-content">SI</span>
+                    <span className="item-info-content">{ flor ? 'SI' : 'NO'}</span>
                   </div>
                   <div className="col-xs-6">
                     <span className="item-info-label">Puntos</span>
-                    <span className="item-info-content">30 PTOS.</span>
+                    <span className="item-info-content">{points} PUNTOS</span>
                   </div>
                   <div className="col-xs-6">
                     <span className="item-info-label">Tiempo de espera</span>
-                    <span className="item-info-content">30 SEG.</span>
+                    <span className="item-info-content">{waitingTime} SEGUNDOS</span>
                   </div>
                 </div>
               </li>
