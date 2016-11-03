@@ -1,14 +1,6 @@
-import Firebase from 'firebase';
-import { apiKey, authDomain, databaseURL, storageBucket } from '../../firebase.json';
+import { database } from '../firebase';
 
-Firebase.initializeApp({
-  apiKey,
-  authDomain,
-  databaseURL,
-  storageBucket
-});
-
-const gamesRef = Firebase.database().ref('games');
+const gamesRef = database.ref('games');
 
 export function fetchGames() {
   return (dispatch) => {
