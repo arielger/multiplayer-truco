@@ -8,6 +8,7 @@ class CreateGame extends React.Component {
   constructor() {
     super();
 
+    // Default game configuration
     this.state = {
       players: 2,
       flor: false,
@@ -43,7 +44,19 @@ class CreateGame extends React.Component {
   addGame(e) {
     e.preventDefault();
     const { players, flor, points, waitingTime } = this.state;
-    gamesActions.createGame({ config: { players, flor, points, waitingTime } });
+    gamesActions.createGame({
+      // Game have already started
+      started: false,
+      // Array of users playing the game
+      users: [],
+      // Configuration properties for the game
+      config: {
+        players,
+        flor,
+        points,
+        waitingTime
+      }
+    });
   }
   render() {
     return (

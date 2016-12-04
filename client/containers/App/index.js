@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Match } from 'react-router';
-import { Home } from '../';
+import { userActions } from '../../actions';
+import { Home, WaitRoomGame } from '../';
 import './index.sass';
 
 class App extends Component {
+  componentDidMount() {
+    userActions.signInAnonymously();
+  }
   render() {
     return (
       <BrowserRouter>
@@ -11,6 +15,10 @@ class App extends Component {
           <div className="modals-container" />
           <Match exactly pattern="/" render={() => <Home />} />
           <Match pattern="/crear-partida" render={() => <Home createGame />} />
+          <Match
+            pattern="/partida/:gameId"
+            render={() => <WaitRoomGame />}
+          />
         </div>
       </BrowserRouter>
     );

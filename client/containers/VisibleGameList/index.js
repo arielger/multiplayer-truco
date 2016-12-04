@@ -1,10 +1,13 @@
 import { connect } from 'react-redux';
-import { toArray } from 'lodash';
 import { GameList } from '../../components';
 import { gamesActions } from '../../actions';
 
+const gameObjToArray = games => Object.keys(games).map(gameKey =>
+    Object.assign({}, games[gameKey], { key: gameKey })
+  );
+
 const mapStateToProps = state => ({
-  games: toArray(state.games)
+  games: gameObjToArray(state.games)
 });
 
 const mapDispatchToProps = {
