@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { App } from './containers';
 import reducer from './reducers';
+import { userActions } from './actions';
 
 /* eslint-disable no-underscore-dangle */
 // From redux-dev-tools extension github
@@ -22,6 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
     </Provider>,
     document.getElementById('app')
   );
+});
+
+setTimeout(() => {
+  store.dispatch(userActions.listenToAuth());
+  store.dispatch(userActions.signInAnonymously());
 });
 
 export default store;

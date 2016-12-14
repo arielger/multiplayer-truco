@@ -10,13 +10,9 @@ const mapStateToProps = state => ({
   games: gameObjToArray(state.games)
 });
 
-const mapDispatchToProps = {
-  fetchGames: gamesActions.fetchGames
-};
-
 const VisibleGameList = connect(
   mapStateToProps,
-  mapDispatchToProps
+  { fetchGames: gamesActions.fetchGames }
 )(GameList);
 
 export default VisibleGameList;
