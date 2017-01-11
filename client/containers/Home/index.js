@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import { CreateGame, VisibleGameList } from '../';
+import { CreateGame, GameList } from '../';
 import './index.sass';
 
 const Home = ({ createGame }) =>
@@ -16,7 +16,7 @@ const Home = ({ createGame }) =>
           <button className="btn">Crear nueva partida</button>
         </Link>
       </div>
-      <VisibleGameList />
+      <GameList />
     </div>
   </div>;
 

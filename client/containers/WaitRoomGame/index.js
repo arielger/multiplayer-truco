@@ -1,6 +1,12 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 class WaitRoomGame extends Component {
+  componentDidMount() {
+    console.log('Save user as waiting user.');
+  }
+  componentWillUnmount() {
+    console.log('User is leaving the waiting room');
+  }
   render() {
     return (
       <div>

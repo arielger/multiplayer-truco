@@ -16,18 +16,18 @@ const store = createStore(reducer, {}, composeEnhancers(
 ));
 /* eslint-enable */
 
-document.addEventListener('DOMContentLoaded', () => {
+const renderRoot = () => {
   ReactDOM.render(
     <Provider store={store}>
       <App />
     </Provider>,
     document.getElementById('app')
   );
-});
+};
 
-setTimeout(() => {
-  store.dispatch(userActions.listenToAuth());
-  store.dispatch(userActions.signInAnonymously());
-});
+// Render root application component when authentication data is in the store
+userActions.initAuth(store.dispatch)
+  .then(() => renderRoot())
+  .catch(error => console.log(error)); // eslint-disable-line no-console
 
 export default store;

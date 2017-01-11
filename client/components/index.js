@@ -1,2 +1,2 @@
-export GameList from './GameList';
+export GameListItem from './GameListItem';
 export Modal from './Modal';

@@ -1,12 +1,6 @@
-import Firebase from 'firebase';
-import { apiKey, authDomain, databaseURL, storageBucket } from '../firebase.json';
+import firebase from 'firebase';
+import firebaseConfig from '../firebase.json';
 
-Firebase.initializeApp({
-  apiKey,
-  authDomain,
-  databaseURL,
-  storageBucket
-});
-
-export const database = Firebase.database();
-export const auth = Firebase.auth();
+export const firebaseApp = firebase.initializeApp(firebaseConfig);
+export const firebaseDatabase = firebase.database();
+export const firebaseAuth = firebase.auth();

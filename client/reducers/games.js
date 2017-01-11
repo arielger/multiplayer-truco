@@ -1,6 +1,10 @@
+import {
+  LOAD_GAMES
+} from '../actions/games-types';
+
 const games = (state = [], action) => {
   switch (action.type) {
-    case 'FETCH_GAMES':
+    case LOAD_GAMES:
       return action.payload;
     default:
       return state;

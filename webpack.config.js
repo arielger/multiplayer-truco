@@ -1,6 +1,6 @@
-var path = require('path');
+const path = require('path');
 
-var config = {
+const config = {
   context: path.join(__dirname, '/client'),
   entry: ['./index.js'],
   output: {

@@ -4,17 +4,20 @@ import { Modal } from '../../components/';
 import { gamesActions } from '../../actions/';
 import './index.sass';
 
+// @todo: add redux-form
+
+const defaultGameConfig = {
+  players: 2,
+  flor: false,
+  points: 15,
+  waitingTime: 20
+};
+
 class CreateGame extends React.Component {
   constructor() {
     super();
 
-    // Default game configuration
-    this.state = {
-      players: 2,
-      flor: false,
-      points: 15,
-      waitingTime: 20
-    };
+    this.state = Object.assign({}, defaultGameConfig);
     this.addGame = this.addGame.bind(this);
   }
   onGameConfigChange(e, property) {
@@ -49,6 +52,7 @@ class CreateGame extends React.Component {
       started: false,
       // Array of users playing the game
       users: [],
+      admin: {},
       // Configuration properties for the game
       config: {
         players,

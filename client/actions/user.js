@@ -1,33 +1,62 @@
-import { auth } from '../firebase';
+import firebase from 'firebase';
+import { firebaseAuth } from '../firebase';
+import {
+  INIT_AUTH,
+  SIGN_IN_SUCCESS,
+  SIGN_IN_ERROR
+} from './user-types';
 
-// http://blog.krawaller.se/posts/a-react-redux-firebase-app-with-authentication/
-// startListeningToAuth is called att app start,
-// setting upp the real-time updates from Firebase.
-// This means we never have to bother catching the result of
-// subsequent auth requests made to Firebase, this listener will catch them all!
-export function listenToAuth() {
-  return (dispatch, getState) => {
-    auth.onAuthStateChanged((user) => {
-      console.log(user);
-      if (user && getState().user != null) {
-        dispatch({
-          type: 'LOG_IN',
-          payload: user
-        });
-      }
-      if (user == null) {
-        dispatch({
-          type: 'LOG_OUT'
-        });
-      }
-    });
+function signInSuccess(result) {
+  return {
+    type: SIGN_IN_SUCCESS,
+    payload: result
   };
 }
 
-export function signInAnonymously() {
-  return () => {
-    auth.signInAnonymously().catch(
-      error => console.error(error.code, error.message)
-    );
+function signInError(error) {
+  return {
+    type: SIGN_IN_ERROR,
+    payload: error
   };
+}
+
+function authenticate(provider) {
+  return (dispatch) => {
+    firebaseAuth.signInWithPopup(provider)
+      .then(result => dispatch(signInSuccess(result)))
+      .catch(error => dispatch(signInError(error)));
+  };
+}
+
+function initializeAuth(user) {
+  return {
+    type: INIT_AUTH,
+    payload: user
+  };
+}
+
+export function initAuth(dispatch) {
+  return new Promise((resolve, reject) => {
+    firebaseAuth.onAuthStateChanged(
+      (user) => {
+        dispatch(initializeAuth(user));
+        resolve();
+      },
+      (error) => {
+        reject(error);
+      }
+    );
+  });
+}
+
+export function signInWithFacebook() {
+  return authenticate(new firebase.auth.FacebookAuthProvider());
+}
+
+export function signInWithTwitter() {
+  return authenticate(new firebase.auth.TwitterAuthProvider());
+}
+
+export function signInWithGithub() {
+  return authenticate(new firebase.auth.GithubAuthProvider());
 }

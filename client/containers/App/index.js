@@ -1,19 +1,43 @@
-import React from 'react';
-import { BrowserRouter, Match } from 'react-router';
-import { Home, WaitRoomGame } from '../';
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { BrowserRouter, Match, Redirect } from 'react-router';
+import _ from 'lodash';
+import { Authentication, Home, WaitRoomGame } from '../';
 import './index.sass';
 
-const App = () =>
+const App = ({ isAuthenticated }) =>
   <BrowserRouter>
     <div>
       <div className="modals-container" />
-      <Match exactly pattern="/" render={() => <Home />} />
-      <Match pattern="/crear-partida" render={() => <Home createGame />} />
+
+      {/* Redirect all routes to login page if the user is not logged in */}
       <Match
-        pattern="/partida/:gameId"
-        render={() => <WaitRoomGame />}
+        pattern="/"
+        render={() => {
+          if (!isAuthenticated) return <Redirect to={{ pathname: '/login' }} />;
+          return null;
+        }}
       />
+
+      <Match pattern="/" exactly render={() => <Home />} />
+      <Match pattern="/login" render={() => <Authentication />} />
+      <Match pattern="/crear-partida" render={() => <Home createGame />} />
+      <Match pattern="/partida/:gameId" render={() => <WaitRoomGame />} />
     </div>
   </BrowserRouter>;
 
-export default App;
+App.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired
+};
+
+// -------------------------------------
+//  CONNECT
+// -------------------------------------
+
+const mapStateToProps = state => ({
+  isAuthenticated: !!_.get(state, 'user.uid')
+});
+
+export default connect(
+  mapStateToProps
+)(App);
