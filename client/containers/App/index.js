@@ -1,15 +1,14 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter, Match, Redirect } from 'react-router';
-import _ from 'lodash';
-import { Authentication, Home, WaitRoomGame } from '../';
+import { Header, Authentication, Home, WaitRoomGame } from '../';
 import './index.sass';
 
 const App = ({ isAuthenticated }) =>
   <BrowserRouter>
     <div>
       <div className="modals-container" />
-
+      <Header />
       {/* Redirect all routes to login page if the user is not logged in */}
       <Match
         pattern="/"
@@ -35,7 +34,7 @@ App.propTypes = {
 // -------------------------------------
 
 const mapStateToProps = state => ({
-  isAuthenticated: !!_.get(state, 'user.uid')
+  isAuthenticated: !!state.user
 });
 
 export default connect(

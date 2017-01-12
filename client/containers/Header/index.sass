@@ -1,0 +1,39 @@
+.main-header
+  background-color: white;
+
+  &,
+  .row
+    height: 60px;
+
+  // http://stackoverflow.com/questions/33444666/how-to-center-align-one-flex-item-and-right-align-another-using-flexbox
+  // Center-align logo and right-align user information
+  .col-xs-12
+    display: flex;
+    justify-content: flex-start;
+    position: relative;
+    align-items: center;
+
+  .main-header-title
+    font-size: 22px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0;
+    flex: 0 1 auto;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+
+  .main-header-user
+    display: flex;
+    align-items: center;
+    flex: 0 1 auto;
+    margin-left: auto;
+
+    .user-name
+      margin-right: 16px;
+      color: rgba(black, .84);
+
+    .user-avatar
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;

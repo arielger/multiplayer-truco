@@ -3,7 +3,8 @@ import { firebaseAuth } from '../firebase';
 import {
   INIT_AUTH,
   SIGN_IN_SUCCESS,
-  SIGN_IN_ERROR
+  SIGN_IN_ERROR,
+  SIGN_OUT_SUCCESS
 } from './user-types';
 
 function signInSuccess(result) {
@@ -17,6 +18,12 @@ function signInError(error) {
   return {
     type: SIGN_IN_ERROR,
     payload: error
+  };
+}
+
+function signOutSuccess() {
+  return {
+    type: SIGN_OUT_SUCCESS
   };
 }
 
@@ -59,4 +66,11 @@ export function signInWithTwitter() {
 
 export function signInWithGithub() {
   return authenticate(new firebase.auth.GithubAuthProvider());
+}
+
+export function signOut() {
+  return (dispatch) => {
+    firebaseAuth.signOut()
+      .then(() => dispatch(signOutSuccess()));
+  };
 }
