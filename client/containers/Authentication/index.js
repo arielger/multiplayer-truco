@@ -1,27 +1,26 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import { userActions } from '../../actions';
 import './index.sass';
 
-class Authentication extends Component {
-  render() {
-    return (
-      <div className="container">
-        <div className="authentication-panel">
-          <button className="btn" onClick={this.props.signInWithFacebook}>
-            Authenticate with facebook
-          </button>
-          <button className="btn" onClick={this.props.signInWithTwitter}>
-            Authenticate with Twitter
-          </button>
-          <button className="btn" onClick={this.props.signInWithGithub}>
-            Authenticate with Github
-          </button>
-        </div>
-      </div>
-    );
-  }
-}
+const SocialAuthButton = ({ name, onClick }) =>
+  <button className={`btn social-provider-btn ${name.toLowerCase()}`} onClick={onClick}>
+    Sign in with {_.capitalize(name)}
+  </button>;
+
+SocialAuthButton.propTypes = {
+  name: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired
+};
+
+const Authentication = ({ signInWithFacebook, signInWithTwitter, signInWithGithub }) =>
+  <div className="authentication-panel">
+    <h4 className="authentication-panel-description">Hi 👋 Please sign in to start playing.</h4>
+    <SocialAuthButton name="facebook" onClick={signInWithFacebook} />
+    <SocialAuthButton name="twitter" onClick={signInWithTwitter} />
+    <SocialAuthButton name="github" onClick={signInWithGithub} />
+  </div>;
 
 Authentication.propTypes = {
   signInWithFacebook: PropTypes.func.isRequired,

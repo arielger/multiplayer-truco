@@ -1,6 +1,7 @@
 export App from './App';
 export Header from './Header';
 export Authentication from './Authentication';
+export MatchAuthenticated from './MatchAuthenticated';
 export Home from './Home';
 export Game from './Game';
 export WaitRoomGame from './WaitRoomGame';

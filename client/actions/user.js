@@ -10,7 +10,7 @@ import {
 function signInSuccess(result) {
   return {
     type: SIGN_IN_SUCCESS,
-    payload: result
+    payload: result.user
   };
 }
 
@@ -44,9 +44,10 @@ function initializeAuth(user) {
 
 export function initAuth(dispatch) {
   return new Promise((resolve, reject) => {
-    firebaseAuth.onAuthStateChanged(
+    const unsuscribe = firebaseAuth.onAuthStateChanged(
       (user) => {
         dispatch(initializeAuth(user));
+        unsuscribe();
         resolve();
       },
       (error) => {

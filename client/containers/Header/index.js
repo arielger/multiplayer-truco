@@ -16,7 +16,7 @@ const Header = ({ userAuthenticated, userName, userImage, userUID, signOut }) =>
       <div className="container">
         <div className="row center-xs middle-xs">
           <div className="col-xs-12">
-            <h1 className="main-header-title">Truco</h1>
+            <h1 className="main-header-title">Truco 🃏🔥</h1>
             { userAuthenticated &&
               <div className="main-header-user">
                 <span className="user-name">{userName}</span>

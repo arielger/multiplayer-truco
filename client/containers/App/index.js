@@ -1,27 +1,41 @@
 import React, { PropTypes } from 'react';
+import { BrowserRouter, Match } from 'react-router';
 import { connect } from 'react-redux';
-import { BrowserRouter, Match, Redirect } from 'react-router';
-import { Header, Authentication, Home, WaitRoomGame } from '../';
+import { MatchAuthenticated, Header, Authentication, Home, WaitRoomGame } from '../';
 import './index.sass';
 
 const App = ({ isAuthenticated }) =>
   <BrowserRouter>
-    <div>
+    <div className="app-container">
       <div className="modals-container" />
-      <Header />
-      {/* Redirect all routes to login page if the user is not logged in */}
+
+      {/* Show Header component if the route isn't /login */}
       <Match
         pattern="/"
-        render={() => {
-          if (!isAuthenticated) return <Redirect to={{ pathname: '/login' }} />;
-          return null;
-        }}
+        render={({ location }) => !location.pathname.startsWith('/login') && <Header />}
       />
 
-      <Match pattern="/" exactly render={() => <Home />} />
-      <Match pattern="/login" render={() => <Authentication />} />
-      <Match pattern="/crear-partida" render={() => <Home createGame />} />
-      <Match pattern="/partida/:gameId" render={() => <WaitRoomGame />} />
+      <MatchAuthenticated
+        matchWhenAuthenticated={false}
+        isAuthenticated={isAuthenticated}
+        pattern="/login"
+        render={() => <Authentication />}
+      />
+      <MatchAuthenticated
+        isAuthenticated={isAuthenticated}
+        pattern="/" exactly
+        render={() => <Home />}
+      />
+      <MatchAuthenticated
+        isAuthenticated={isAuthenticated}
+        pattern="/crear-partida"
+        render={() => <Home createGame />}
+      />
+      <MatchAuthenticated
+        isAuthenticated={isAuthenticated}
+        pattern="/partida/:gameId"
+        render={() => <WaitRoomGame />}
+      />
     </div>
   </BrowserRouter>;
 
@@ -40,3 +54,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps
 )(App);
+
