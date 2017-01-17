@@ -19,22 +19,20 @@ const App = ({ isAuthenticated }) =>
         matchWhenAuthenticated={false}
         isAuthenticated={isAuthenticated}
         pattern="/login"
-        render={() => <Authentication />}
+        exactly
+        component={Authentication}
       />
       <MatchAuthenticated
         isAuthenticated={isAuthenticated}
-        pattern="/" exactly
-        render={() => <Home />}
-      />
-      <MatchAuthenticated
-        isAuthenticated={isAuthenticated}
-        pattern="/crear-partida"
-        render={() => <Home createGame />}
+        pattern="/"
+        exactly
+        component={Home}
       />
       <MatchAuthenticated
         isAuthenticated={isAuthenticated}
         pattern="/partida/:gameId"
-        render={() => <WaitRoomGame />}
+        exactly
+        component={WaitRoomGame}
       />
     </div>
   </BrowserRouter>;

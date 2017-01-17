@@ -12,7 +12,7 @@ const GameListItem = ({ players, flor, points, waitingTime }) =>
           <span className="item-players-count"> (x/{players})</span>
         </span>
         <div className="game-players-wrapper">
-          { _.times(players, () => <div className="game-player" />) }
+          { _.times(players, i => <div className="game-player" key={i} />) }
         </div>
       </div>
       <div className="col-xs-6">

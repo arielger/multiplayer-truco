@@ -7,12 +7,10 @@ const Home = ({ createGame }) =>
   <div className="container">
     { createGame && <CreateGame /> }
     <div className="home-container">
-      <div className="home-filters end-xs">
-        <div className="filters-content" />
-        <Link to="/crear-partida">
-          <button className="btn">Create new game</button>
-        </Link>
-      </div>
+      <Link to="/crear-partida">
+        { /* @todo: Add filter section */}
+        <button className="btn new-game-btn">Create new game</button>
+      </Link>
       <GameList />
     </div>
   </div>;

@@ -3,13 +3,14 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { GameListItem } from '../../components';
 import { gamesActions } from '../../actions';
+import './index.sass';
 
 export class GameList extends Component {
   componentDidMount() {
     this.props.loadGames();
   }
   componentWillUnmount() {
-    this.props.unloadGames();
+    // this.props.unloadGames();
   }
   render() {
     return (

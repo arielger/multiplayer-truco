@@ -3,11 +3,11 @@ import { Match, Redirect } from 'react-router';
 
 // MatchAuthenticated based on react-router example
 // https://react-router.now.sh/auth-workflow
-const MatchAuthenticated = ({ matchWhenAuthenticated, isAuthenticated, render, ...rest }) =>
+const MatchAuthenticated = ({ matchWhenAuthenticated, isAuthenticated, component: Component, ...rest }) =>
   <Match
     {...rest}
     render={(props) => {
-      if (matchWhenAuthenticated === isAuthenticated) return render();
+      if (matchWhenAuthenticated === isAuthenticated) return <Component />;
 
       return (
         <Redirect
@@ -26,8 +26,7 @@ MatchAuthenticated.defaultProps = {
 
 MatchAuthenticated.propTypes = {
   matchWhenAuthenticated: PropTypes.bool,
-  isAuthenticated: PropTypes.bool.isRequired,
-  render: PropTypes.func.isRequired
+  isAuthenticated: PropTypes.bool.isRequired
 };
 
 export default MatchAuthenticated;
