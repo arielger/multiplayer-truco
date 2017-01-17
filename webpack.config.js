@@ -12,17 +12,20 @@ const config = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loaders: ['babel']
+        loaders: ['babel-loader']
+      },
+      {
+        test: /\.css$/,
+        loaders: ['style-loader', 'css-loader']
       },
       {
         test: /\.sass$/,
-        exclude: /node_modules/,
-        loaders: ['style', 'css', 'sass']
+        loaders: ['style-loader', 'css-loader', 'sass-loader?sourceMap']
       },
       {
         test: /\.json$/,
         exclude: /node_modules/,
-        loaders: ['json']
+        loaders: ['json-loader']
       }
     ]
   },
