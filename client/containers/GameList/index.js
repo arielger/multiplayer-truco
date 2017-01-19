@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { GameListItem } from '../../components';
 import { gamesActions } from '../../actions';
+import { getAllGames } from '../../reducers/games';
 import './index.sass';
 
 export class GameList extends Component {
@@ -13,24 +13,20 @@ export class GameList extends Component {
     // this.props.unloadGames();
   }
   render() {
+    const { games } = this.props;
+
+    if (!games.length) return <h4>No games yet.</h4>;
+
     return (
       <ul className="game-list row">
-        { this.props.games.map(game =>
-          <div className="col-xs-6" key={game.key}>
-            <Link to={`/partida/${game.key}`}>
-              <GameListItem {...game.config} />
-            </Link>
-          </div>
-        ) }
+        { games.map(game => <GameListItem key={game.id} id={game.id} {...game.configuration} />)}
       </ul>
     );
   }
 }
 
 GameList.propTypes = {
-  games: PropTypes.arrayOf(
-    PropTypes.object
-  ).isRequired,
+  games: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
   loadGames: PropTypes.func.isRequired,
   unloadGames: PropTypes.func.isRequired
 };
@@ -40,12 +36,8 @@ GameList.propTypes = {
 //  CONNECT
 // -------------------------------------
 
-const gameObjToArray = games => Object.keys(games).map(gameKey =>
-    Object.assign({}, games[gameKey], { key: gameKey })
-  );
-
 const mapStateToProps = state => ({
-  games: gameObjToArray(state.games)
+  games: getAllGames(state)
 });
 
 const mapDispatchToProps = {

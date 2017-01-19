@@ -1,13 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
+import './index.sass';
 
-class Game extends Component {
-  render() {
-    return (
-      <div>
-        <h1>Game</h1>
-      </div>
-    );
-  }
-}
+// @todo
+
+const Game = () =>
+  <div>
+    <h1>Game</h1>
+  </div>;
 
 export default Game;

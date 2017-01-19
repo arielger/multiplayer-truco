@@ -5,7 +5,7 @@ import {
   SIGN_IN_SUCCESS,
   SIGN_IN_ERROR,
   SIGN_OUT_SUCCESS
-} from './user-types';
+} from './action-types';
 
 function signInSuccess(result) {
   return {

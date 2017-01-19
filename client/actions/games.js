@@ -1,8 +1,8 @@
 import { firebaseDatabase } from '../firebase';
 import {
   LOAD_GAMES,
-  UNLOAD_GAMES
-} from './games-types';
+  CREATE_GAME
+} from './action-types';
 
 const gamesRef = firebaseDatabase.ref('games');
 
@@ -17,13 +17,14 @@ export function loadGames() {
   };
 }
 
-
 export function unloadGames() {
-  // @todo: complete
-  console.log('@todo: complete unloadGames action creator');
+
 }
 
-
 export function createGame(game) {
-  return gamesRef.push(game);
+  gamesRef.push(game);
+  return {
+    type: CREATE_GAME,
+    payload: game
+  };
 }

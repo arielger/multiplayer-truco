@@ -45,8 +45,8 @@ Header.propTypes = {
 
 const mapStateToProps = state => ({
   userAuthenticated: !!state.user,
-  userName: _.get(state, 'user.displayName'),
-  userImage: _.get(state, 'user.photoURL'),
+  userName: _.get(state, 'user.name'),
+  userImage: _.get(state, 'user.avatar'),
   userUID: _.get(state, 'user.uid')
 });
 

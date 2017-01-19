@@ -30,6 +30,12 @@ const App = ({ isAuthenticated }) =>
       />
       <MatchAuthenticated
         isAuthenticated={isAuthenticated}
+        pattern="/crear-partida"
+        exactly
+        render={() => <Home createGame />}
+      />
+      <MatchAuthenticated
+        isAuthenticated={isAuthenticated}
         pattern="/partida/:gameId"
         exactly
         component={WaitRoomGame}
