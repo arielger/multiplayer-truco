@@ -25,7 +25,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '/www/index.html'));
 });
 
-const server = app.listen(3000, () => {
+const server = app.listen(process.env.PORT || 3000, () => {
   const host = server.address().address;
   const port = server.address().port;
   console.log('Example app listening at http://%s:%s', host, port); // eslint-disable-line no-console
