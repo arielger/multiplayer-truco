@@ -19,3 +19,4 @@ export const SIGN_OUT_SUCCESS = 'SIGN_OUT_SUCCESS';
 // USERS
 
 export const LOAD_USERS = 'LOAD_USERS';
+export const USER_DISCONNECT = 'USER_DISCONNECT';

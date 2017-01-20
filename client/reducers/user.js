@@ -9,6 +9,7 @@ const user = (state = null, action) => {
   switch (action.type) {
     case INIT_AUTH:
     case SIGN_IN_SUCCESS:
+      if (!action.payload) return state;
       return {
         uid: action.payload.uid,
         name: action.payload.displayName,
