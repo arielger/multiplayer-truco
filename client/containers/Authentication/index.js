@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import { Loader } from '../../components';
 import { userActions } from '../../actions';
 import styles from './index.sass';
 
@@ -14,26 +15,33 @@ SocialAuthButton.propTypes = {
   onClick: PropTypes.func.isRequired
 };
 
-const Authentication = ({ signInWithFacebook, signInWithTwitter, signInWithGithub }) =>
+const Authentication = ({ signInWithFacebook, signInWithTwitter, signInWithGithub, isLoading }) =>
   <div className={styles.container}>
     <h1 className={styles.title}>Truco</h1>
     <div className={styles.modal}>
-      <h4 className={styles.description}>Hi 👋 Please sign in to start playing.</h4>
-      <SocialAuthButton name="facebook" onClick={signInWithFacebook} />
-      <SocialAuthButton name="twitter" onClick={signInWithTwitter} />
-      <SocialAuthButton name="github" onClick={signInWithGithub} />
+      <Loader show={isLoading}>
+        <h4 className={styles.description}>Hi 👋 Please sign in to start playing.</h4>
+        <SocialAuthButton name="facebook" onClick={signInWithFacebook} />
+        <SocialAuthButton name="twitter" onClick={signInWithTwitter} />
+        <SocialAuthButton name="github" onClick={signInWithGithub} />
+      </Loader>
     </div>
   </div>;
 
 Authentication.propTypes = {
   signInWithFacebook: PropTypes.func.isRequired,
   signInWithTwitter: PropTypes.func.isRequired,
-  signInWithGithub: PropTypes.func.isRequired
+  signInWithGithub: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired
 };
 
 // -------------------------------------
 //  CONNECT
 // -------------------------------------
+
+const mapStateToProps = state => ({
+  isLoading: state.user.loading
+});
 
 const mapDispatchToProps = {
   signInWithFacebook: userActions.signInWithFacebook,
@@ -42,6 +50,6 @@ const mapDispatchToProps = {
 };
 
 export default connect(
-  () => ({}),
+  mapStateToProps,
   mapDispatchToProps
 )(Authentication);

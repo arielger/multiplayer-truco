@@ -52,7 +52,7 @@ App.propTypes = {
 // -------------------------------------
 
 const mapStateToProps = state => ({
-  isAuthenticated: !!state.user
+  isAuthenticated: state.user.authenticated
 });
 
 export default connect(

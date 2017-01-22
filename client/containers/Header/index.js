@@ -44,10 +44,10 @@ Header.propTypes = {
 // -------------------------------------
 
 const mapStateToProps = state => ({
-  userAuthenticated: !!state.user,
-  userName: _.get(state, 'user.name'),
-  userImage: _.get(state, 'user.avatar'),
-  userUID: _.get(state, 'user.uid')
+  userAuthenticated: state.user.authenticated,
+  userName: _.get(state, 'user.data.name'),
+  userImage: _.get(state, 'user.data.avatar'),
+  userUID: _.get(state, 'user.data.uid')
 });
 
 const mapDispatchToProps = {

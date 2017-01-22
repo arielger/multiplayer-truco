@@ -3,6 +3,7 @@ import _ from 'lodash';
 import { firebaseAuth, firebaseDatabase } from '../firebase';
 import {
   INIT_AUTH,
+  SIGN_IN_START,
   SIGN_IN_SUCCESS,
   SIGN_IN_ERROR,
   SIGN_OUT_SUCCESS
@@ -49,8 +50,15 @@ function signOutSuccess() {
   };
 }
 
+function startSignIn() {
+  return {
+    type: SIGN_IN_START
+  };
+}
+
 function authenticate(provider) {
   return (dispatch) => {
+    dispatch(startSignIn());
     firebaseAuth.signInWithPopup(provider)
       .then(result => dispatch(signInSuccess(result)))
       .catch(error => dispatch(signInError(error)));
@@ -70,6 +78,7 @@ export function initAuth(dispatch) {
       (user) => {
         dispatch(initializeAuth(user));
 
+        // Add user to connected users list if he is already authenticated
         if (_.get(user, 'uid')) addConnectedUser(user);
 
         unsuscribe();

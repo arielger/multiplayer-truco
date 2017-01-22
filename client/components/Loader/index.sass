@@ -1,0 +1,41 @@
+.container
+  position: relative;
+
+.overlay
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(white, 0.98);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+.loader span
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 100%;
+  background-color: #666;
+  opacity: 0;
+
+  & + span
+    margin-left: 10px;
+
+  &:nth-child(1)
+    animation: opacitychange 1s ease-in-out infinite;
+
+  &:nth-child(2)
+    animation: opacitychange 1s ease-in-out 0.33s infinite;
+
+  &:nth-child(3)
+    animation: opacitychange 1s ease-in-out 0.66s infinite;
+
+:global
+  @keyframes opacitychange
+    0%, 100%
+      opacity: 0;
+
+    60%
+      opacity: 1;
