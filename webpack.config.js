@@ -2,13 +2,15 @@ const path = require('path');
 
 const config = {
   context: path.join(__dirname, '/client'),
-  entry: ['./index.js'],
+  entry: [
+    './index.js'
+  ],
   output: {
     path: path.join(__dirname, '/build'),
     filename: 'bundle.js'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -29,16 +31,8 @@ const config = {
       }
     ]
   },
-  resolveLoader: {
-    root: [
-      path.join(__dirname, 'node_modules')
-    ]
-  },
-  resolve: {
-    root: [
-      path.join(__dirname, 'node_modules')
-    ]
-  }
+  target: 'web',
+  devtool: 'source-map'
 };
 
 module.exports = config;
