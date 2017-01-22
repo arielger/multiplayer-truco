@@ -16,10 +16,13 @@ SocialAuthButton.propTypes = {
 
 const Authentication = ({ signInWithFacebook, signInWithTwitter, signInWithGithub }) =>
   <div className={styles.container}>
-    <h4 className={styles.description}>Hi 👋 Please sign in to start playing.</h4>
-    <SocialAuthButton name="facebook" onClick={signInWithFacebook} />
-    <SocialAuthButton name="twitter" onClick={signInWithTwitter} />
-    <SocialAuthButton name="github" onClick={signInWithGithub} />
+    <h1 className={styles.title}>Truco</h1>
+    <div className={styles.modal}>
+      <h4 className={styles.description}>Hi 👋 Please sign in to start playing.</h4>
+      <SocialAuthButton name="facebook" onClick={signInWithFacebook} />
+      <SocialAuthButton name="twitter" onClick={signInWithTwitter} />
+      <SocialAuthButton name="github" onClick={signInWithGithub} />
+    </div>
   </div>;
 
 Authentication.propTypes = {

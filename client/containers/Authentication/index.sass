@@ -1,16 +1,35 @@
 @import '../../styles/variables'
 
 .container
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 400px;
+  margin-top: 40px;
+  padding: 0 15px;
+
+  @media (min-width: $breakpoint-tablet)
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 400px;
+    margin-top: 0;
+
+.title
+  font-family: 'Titan One', sans-serif;
+  color: white;
+  text-transform: uppercase;
+  font-size: 72px;
+  text-shadow: 0 1px 0 #CCC, 0 2px 0 #CCC, 0 3px 0 #CCC, 0 3px 8px rgba(black, 0.5);
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 40px;
+  letter-spacing: 4px;
+
+.modal
   display: flex;
   flex-direction: column;
   justify-content: center;
   background-color: white;
-  padding: 40px;
+  padding: 30px;
   border-radius: 3px;
   box-shadow: 0px 1px 6px 0px rgba(black, 0.2);
 
@@ -22,6 +41,7 @@
 
 .socialProviderBtn
   display: block;
+  cursor: pointer;
   color: white;
   text-align: left;
   width: 100%;
