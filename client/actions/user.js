@@ -28,7 +28,8 @@ function addConnectedUser(user) {
 }
 
 function signInSuccess(result) {
-  if (result.user.uid) addConnectedUser(result.user);
+  if (_.get(result, 'user.uid')) addConnectedUser(result.user);
+
   return {
     type: SIGN_IN_SUCCESS,
     payload: result.user
@@ -69,7 +70,7 @@ export function initAuth(dispatch) {
       (user) => {
         dispatch(initializeAuth(user));
 
-        if (user.uid) addConnectedUser(user);
+        if (_.get(user, 'uid')) addConnectedUser(user);
 
         unsuscribe();
         resolve();
