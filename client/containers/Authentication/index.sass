@@ -1,6 +1,6 @@
 @import '../../styles/variables'
 
-.authentication-panel
+.container
   position: absolute;
   left: 50%;
   top: 50%;
@@ -14,38 +14,39 @@
   border-radius: 3px;
   box-shadow: 0px 1px 6px 0px rgba(black, 0.2);
 
-  .authentication-panel-description
-    text-align: center;
-    margin-top: 0;
-    color: $color-text;
-    margin-bottom: 32px;
+.description
+  text-align: center;
+  margin-top: 0;
+  color: $color-text;
+  margin-bottom: 32px;
 
-  .social-provider-btn
-    display: block;
-    color: white;
-    text-align: left;
-    width: 100%;
-    border: 0;
-    padding: 16px;
-    transition: background-color 0.2s;
+.socialProviderBtn
+  display: block;
+  color: white;
+  text-align: left;
+  width: 100%;
+  border: 0;
+  border-radius: 3px;
+  padding: 16px;
+  transition: background-color 0.2s;
 
-    & + .social-provider-btn
-      margin-top: 12px;
+  & + .socialProviderBtn
+    margin-top: 12px;
 
-    &.facebook
-      background-color: $facebook-brand-color;
+  &.facebook
+    background-color: $facebook-brand-color;
 
-      &:hover
-        background-color: darken($facebook-brand-color, 5%)
+    &:hover
+      background-color: darken($facebook-brand-color, 5%)
 
-    &.twitter
-      background-color: $twitter-brand-color;
+  &.twitter
+    background-color: $twitter-brand-color;
 
-      &:hover
-        background-color: darken($twitter-brand-color, 5%)
+    &:hover
+      background-color: darken($twitter-brand-color, 5%)
 
-    &.github
-      background-color: $github-brand-color;
+  &.github
+    background-color: $github-brand-color;
 
-      &:hover
-        background-color: darken($github-brand-color, 5%)
+    &:hover
+      background-color: darken($github-brand-color, 5%)

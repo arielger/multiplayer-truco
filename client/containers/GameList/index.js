@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { GameListItem } from '../../components';
 import { gamesActions } from '../../actions';
 import { getAllGames } from '../../reducers/games';
-import './index.sass';
+import styles from './index.sass';
 
 export class GameList extends Component {
   componentDidMount() {
@@ -18,7 +18,7 @@ export class GameList extends Component {
     if (!games.length) return <h4>No games yet.</h4>;
 
     return (
-      <ul className="game-list row">
+      <ul className={`${styles.gameList} row`}>
         { games.map(game => <GameListItem key={game.id} id={game.id} {...game.configuration} />)}
       </ul>
     );

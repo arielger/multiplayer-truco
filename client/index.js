@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
@@ -17,7 +17,7 @@ const store = createStore(reducer, {}, composeEnhancers(
 /* eslint-enable */
 
 const renderRoot = () => {
-  ReactDOM.render(
+  render(
     <Provider store={store}>
       <App />
     </Provider>,
@@ -29,5 +29,20 @@ const renderRoot = () => {
 userActions.initAuth(store.dispatch)
   .then(() => renderRoot())
   .catch(error => console.log(error)); // eslint-disable-line no-console
+
+// HMR Configuration
+
+if (module.hot) {
+  module.hot.accept('./containers', () => {
+    const NextApp = require('./containers').App; // eslint-disable-line global-require
+
+    render(
+      <Provider store={store}>
+        <NextApp />
+      </Provider>,
+      document.getElementById('app')
+    );
+  });
+}
 
 export default store;

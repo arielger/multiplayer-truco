@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import ReactModal from 'react-modal';
-import './index.sass';
+import styles from './index.sass';
 
 class Modal extends React.Component {
   constructor() {
@@ -13,8 +13,8 @@ class Modal extends React.Component {
     return (
       <ReactModal
         isOpen={isOpen}
-        className="modal-content"
-        overlayClassName="modal-overlay"
+        className={styles.modalContent}
+        overlayClassName={styles.modalOverlay}
         {...this.props}
       >
         {children}

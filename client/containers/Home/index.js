@@ -1,15 +1,15 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import { CreateGame, GameList } from '../';
-import './index.sass';
+import styles from './index.sass';
 
 const Home = ({ createGame }) =>
   <div className="container">
     { createGame && <CreateGame /> }
-    <div className="home-container">
+    <div className={styles.homeContainer}>
       <Link to="/crear-partida">
         { /* @todo: Add filter section */}
-        <button className="btn new-game-btn">Create new game</button>
+        <button className={`btn ${styles.newGameBtn}`}>Create new game</button>
       </Link>
       <GameList />
     </div>

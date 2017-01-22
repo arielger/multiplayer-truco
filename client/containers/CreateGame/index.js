@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { Field, reduxForm } from 'redux-form';
 import { Modal } from '../../components/';
 import { gamesActions } from '../../actions/';
-import './index.sass';
+import styles from './index.sass';
 
 const RadioButtonField = ({ name, id, value }) =>
   <div>

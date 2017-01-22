@@ -2,10 +2,10 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { userActions } from '../../actions';
-import './index.sass';
+import styles from './index.sass';
 
 const SocialAuthButton = ({ name, onClick }) =>
-  <button className={`btn social-provider-btn ${name.toLowerCase()}`} onClick={onClick}>
+  <button className={`btn ${styles.socialProviderBtn} ${styles[name.toLowerCase()]}`} onClick={onClick}>
     Sign in with {_.capitalize(name)}
   </button>;
 
@@ -15,8 +15,8 @@ SocialAuthButton.propTypes = {
 };
 
 const Authentication = ({ signInWithFacebook, signInWithTwitter, signInWithGithub }) =>
-  <div className="authentication-panel">
-    <h4 className="authentication-panel-description">Hi 👋 Please sign in to start playing.</h4>
+  <div className={styles.container}>
+    <h4 className={styles.description}>Hi 👋 Please sign in to start playing.</h4>
     <SocialAuthButton name="facebook" onClick={signInWithFacebook} />
     <SocialAuthButton name="twitter" onClick={signInWithTwitter} />
     <SocialAuthButton name="github" onClick={signInWithGithub} />
