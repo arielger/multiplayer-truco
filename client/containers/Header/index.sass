@@ -1,8 +1,10 @@
 $header-height: 60px;
 
 .header
-  background-color: white;
+  background-color: darken(#29323c, 5%);
   height: $header-height;
+  border-bottom: 1px solid rgba(black, 0.5);
+  color: white;
 
   :global(.row)
     height: $header-height;
@@ -10,8 +12,9 @@ $header-height: 60px;
   // http://stackoverflow.com/questions/33444666/how-to-center-align-one-flex-item-and-right-align-another-using-flexbox
   // Center-align logo and right-align user information
   :global(.col-xs-12)
+    height: $header-height;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     position: relative;
     align-items: center;
 
@@ -20,22 +23,57 @@ $header-height: 60px;
   text-transform: uppercase;
   letter-spacing: 2px;
   margin: 0;
-  flex: 0 1 auto;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
 
 .user
   display: flex;
+  position: relative;
+  height: 100%;
   align-items: center;
-  flex: 0 1 auto;
-  margin-left: auto;
+  padding: 0 20px;
+  background-color: rgba(black, 0.1);
 
-.userName
-  margin-right: 16px;
-  color: rgba(black, .84);
+  &:hover
+    cursor: pointer;
+    background-color: rgba(black, 0.2);
 
 .userAvatar
   width: 32px;
   height: 32px;
   border-radius: 50%;
+
+.userCaret
+  display: block;
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+  border-top: 5px solid rgba(white, 0.9);
+  position: relative;
+  top: 5px;
+  margin-right: 10px;
+
+.userDropdown
+  // Reset default list styles
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+
+  position: absolute;
+  width: 140px;
+  text-align: left;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px 0px rgba(black, 0.5);
+
+  button
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 3px;
+
+    &:hover
+      background-color: darken(white, 5%);

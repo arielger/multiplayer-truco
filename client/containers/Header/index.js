@@ -1,6 +1,5 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 import { userActions } from '../../actions/';
 import styles from './index.sass';
 
@@ -8,34 +7,54 @@ import styles from './index.sass';
 const avatarSize = 32;
 const generateRandomAvatarURL = str => `https://api.adorable.io/avatars/${avatarSize}/${str}`;
 
-const Header = ({ userAuthenticated, userName, userImage, userUID, signOut }) => {
-  const avatarSrc = userAuthenticated ? userImage || generateRandomAvatarURL(userUID) : null;
+class Header extends Component {
+  constructor() {
+    super();
 
-  return (
-    <div className={styles.header}>
-      <div className="container">
-        <div className="row center-xs middle-xs">
-          <div className="col-xs-12">
-            <h1 className={styles.title}>🔥 truco 🔥</h1>
-            { userAuthenticated &&
-              <div className={styles.user}>
-                <span className={styles.userName}>{userName}</span>
-                <img className={styles.userAvatar} src={avatarSrc} alt={`${userName} avatar`} />
-                <button onClick={signOut}>Sign out</button>
-              </div>
-            }
+    this.state = {
+      dropdownOpen: false
+    };
+
+    this.toggleDropdown = this.toggleDropdown.bind(this);
+  }
+  toggleDropdown() {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen
+    });
+  }
+  render() {
+    const { isAuthenticated, avatar, uid, signOut } = this.props;
+    const avatarSrc = isAuthenticated ? avatar || generateRandomAvatarURL(uid) : null;
+
+    return (
+      <div className={styles.header}>
+        <div className="container">
+          <div className="row center-xs middle-xs">
+            <div className="col-xs-12">
+              <h1 className={styles.title}>Truco</h1>
+              { isAuthenticated &&
+                <div className={styles.user} onClick={this.toggleDropdown}>
+                  <span className={styles.userCaret} />
+                  <img className={styles.userAvatar} src={avatarSrc} alt="User avatar" />
+                  { this.state.dropdownOpen &&
+                    <ul className={styles.userDropdown}>
+                      <li><button onClick={signOut}>Sign up</button></li>
+                    </ul>
+                  }
+                </div>
+              }
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 Header.propTypes = {
-  userAuthenticated: PropTypes.bool.isRequired,
-  userName: PropTypes.string,
-  userImage: PropTypes.string,
-  userUID: PropTypes.string,
+  isAuthenticated: PropTypes.bool.isRequired,
+  avatar: PropTypes.string,
+  uid: PropTypes.string,
   signOut: PropTypes.func.isRequired
 };
 
@@ -43,12 +62,17 @@ Header.propTypes = {
 //  CONNECT
 // -------------------------------------
 
-const mapStateToProps = state => ({
-  userAuthenticated: state.user.authenticated,
-  userName: _.get(state, 'user.data.name'),
-  userImage: _.get(state, 'user.data.avatar'),
-  userUID: _.get(state, 'user.data.uid')
-});
+const mapStateToProps = (state) => {
+  const isAuthenticated = state.user.authenticated;
+
+  return {
+    ...isAuthenticated ? {
+      avatar: state.user.data.avatar,
+      uid: state.user.data.uid
+    } : {},
+    isAuthenticated
+  };
+};
 
 const mapDispatchToProps = {
   signOut: userActions.signOut
