@@ -4,7 +4,7 @@ import {
   JOIN_GAME,
   LEAVE_GAME
 } from '../actions/action-types';
-import game from './game';
+import gameReducer from './game';
 
 const byId = (state = {}, action) => {
   switch (action.type) {
@@ -14,7 +14,7 @@ const byId = (state = {}, action) => {
     case LEAVE_GAME:
       return {
         ...state,
-        [action.id]: game(state[action.id], action)
+        [action.id]: gameReducer(state[action.id], action)
       };
     default:
       return state;
@@ -39,7 +39,13 @@ export default games;
 
 // Selectors
 
-export const getAllGames = state => state.games.allIds.map(id => ({
-  ...state.games.byId[id],
-  id
-}));
+export const getAllGames = state => state.games.allIds.map((id) => {
+  const game = state.games.byId[id];
+  const creatorAvatar = state.users.byId[game.createdBy].avatar;
+
+  return ({
+    ...game,
+    id,
+    creatorAvatar
+  });
+});

@@ -27,6 +27,7 @@ const renderRoot = () => {
 
 // Render root application component when authentication data is in the store
 userActions.initAuth(store.dispatch)
+  .then(() => userActions.loadUsers(store.dispatch))
   .then(() => renderRoot())
   .catch(error => console.log(error)); // eslint-disable-line no-console
 

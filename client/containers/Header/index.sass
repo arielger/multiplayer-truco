@@ -24,6 +24,25 @@ $header-height: 60px;
   letter-spacing: 2px;
   margin: 0;
 
+.rightContainer
+  height: 100%;
+  display: flex;
+  align-items: center;
+
+.newGameBtn
+  background-color: #00D3E8;
+  border: 0;
+  color: white;
+  margin-right: 20px;
+  padding: 10px;
+  border-radius: 3px;
+  cursor: pointer;
+
+  &:hover
+    background-color: darken(#00D3E8, 5%);
+
+// User section
+
 .user
   display: flex;
   position: relative;
@@ -59,6 +78,7 @@ $header-height: 60px;
 
   position: absolute;
   width: 140px;
+  z-index: 1;
   text-align: left;
   top: 100%;
   right: 0;

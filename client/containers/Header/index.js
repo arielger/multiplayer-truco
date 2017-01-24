@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import { userActions } from '../../actions/';
 import styles from './index.sass';
 
@@ -23,8 +24,8 @@ class Header extends Component {
     });
   }
   render() {
-    const { isAuthenticated, avatar, uid, signOut } = this.props;
-    const avatarSrc = isAuthenticated ? avatar || generateRandomAvatarURL(uid) : null;
+    const { avatar, uid, signOut } = this.props;
+    const avatarSrc = avatar || generateRandomAvatarURL(uid);
 
     return (
       <div className={styles.header}>
@@ -32,17 +33,20 @@ class Header extends Component {
           <div className="row center-xs middle-xs">
             <div className="col-xs-12">
               <h1 className={styles.title}>Truco</h1>
-              { isAuthenticated &&
+              <div className={styles.rightContainer}>
+                <Link to="/crear-partida">
+                  <button className={styles.newGameBtn}>Create new game</button>
+                </Link>
                 <div className={styles.user} onClick={this.toggleDropdown}>
                   <span className={styles.userCaret} />
                   <img className={styles.userAvatar} src={avatarSrc} alt="User avatar" />
                   { this.state.dropdownOpen &&
                     <ul className={styles.userDropdown}>
-                      <li><button onClick={signOut}>Sign up</button></li>
+                      <li><button onClick={signOut}>Sign out</button></li>
                     </ul>
                   }
                 </div>
-              }
+              </div>
             </div>
           </div>
         </div>
@@ -52,7 +56,6 @@ class Header extends Component {
 }
 
 Header.propTypes = {
-  isAuthenticated: PropTypes.bool.isRequired,
   avatar: PropTypes.string,
   uid: PropTypes.string,
   signOut: PropTypes.func.isRequired
@@ -62,17 +65,10 @@ Header.propTypes = {
 //  CONNECT
 // -------------------------------------
 
-const mapStateToProps = (state) => {
-  const isAuthenticated = state.user.authenticated;
-
-  return {
-    ...isAuthenticated ? {
-      avatar: state.user.data.avatar,
-      uid: state.user.data.uid
-    } : {},
-    isAuthenticated
-  };
-};
+const mapStateToProps = state => ({
+  avatar: state.user.data.avatar,
+  uid: state.user.data.uid
+});
 
 const mapDispatchToProps = {
   signOut: userActions.signOut

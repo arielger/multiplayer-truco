@@ -19,7 +19,15 @@ export class GameList extends Component {
 
     return (
       <ul className={`${styles.gameList} row`}>
-        { games.map(game => <GameListItem key={game.id} id={game.id} {...game.configuration} />)}
+        { games.map(game =>
+          <GameListItem
+            key={game.id}
+            id={game.id}
+            creatorAvatar={game.creatorAvatar}
+            players={[]}
+            {...game.configuration}
+          />
+        )}
       </ul>
     );
   }

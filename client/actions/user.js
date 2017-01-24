@@ -6,7 +6,8 @@ import {
   SIGN_IN_START,
   SIGN_IN_SUCCESS,
   SIGN_IN_ERROR,
-  SIGN_OUT_SUCCESS
+  SIGN_OUT_SUCCESS,
+  LOAD_USERS
 } from './action-types';
 
 const usersRef = firebaseDatabase.ref('users');
@@ -79,7 +80,9 @@ export function initAuth(dispatch) {
         dispatch(initializeAuth(user));
 
         // Add user to connected users list if he is already authenticated
-        if (_.get(user, 'uid')) addConnectedUser(user);
+        if (_.get(user, 'uid')) {
+          addConnectedUser(user);
+        }
 
         unsuscribe();
         resolve();
@@ -109,3 +112,17 @@ export function signOut() {
       .then(() => dispatch(signOutSuccess()));
   };
 }
+
+export function loadUsers(dispatch) {
+  return new Promise((resolve) => {
+    usersRef.on('value', (snapshot) => {
+      dispatch({
+        type: LOAD_USERS,
+        payload: snapshot.val()
+      });
+      resolve();
+    });
+  });
+}
+
+
