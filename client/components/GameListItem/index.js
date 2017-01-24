@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import styles from './index.sass';
 
 const GameListItem = ({ id, players, playersCount, points, waitingTime, creatorAvatar }) =>
-  <div className={`${styles.itemContainer} col-xs-12 col-sm-6 col-md-3`}>
+  <div className={`${styles.itemContainer} col-xs-12 col-sm-4 col-md-3`}>
     <Link to={`/partida/${id}`}>
       <li className={styles.item}>
         <img src={creatorAvatar} alt="Game creator avatar" className={styles.avatar} />
