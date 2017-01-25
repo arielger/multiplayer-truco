@@ -1,3 +1,20 @@
+@import '../../styles/variables.sass';
+
 .gameList
   padding: 0;
   list-style: none;
+
+.emptyState
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  color: lighten($background-color, 10%);
+  margin-top: 100px;
+
+.emptyStateIcon
+  font-size: 90px;
+
+.emptyStateText
+  font-size: 24px;
+  margin-top: 20px;
+  line-height: 2em;

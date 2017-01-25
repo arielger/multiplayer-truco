@@ -45,7 +45,8 @@ const config = {
             modules: true,
             localIdentName: DEBUG ? '[local]--[hash:base64:2]' : '[hash:base64:4]'
           })}`,
-          'sass-loader?sourceMap']
+          'sass-loader?sourceMap'
+        ]
       },
       {
         test: /\.json$/,

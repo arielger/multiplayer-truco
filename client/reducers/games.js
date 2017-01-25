@@ -41,11 +41,15 @@ export default games;
 
 export const getAllGames = state => state.games.allIds.map((id) => {
   const game = state.games.byId[id];
+  const players = game.players.map(playerId =>
+    state.users.byId[playerId]
+  );
   const creatorAvatar = state.users.byId[game.createdBy].avatar;
 
   return ({
     ...game,
     id,
+    players,
     creatorAvatar
   });
 });

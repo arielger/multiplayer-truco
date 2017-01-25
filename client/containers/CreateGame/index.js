@@ -6,53 +6,69 @@ import { Modal } from '../../components/';
 import { gamesActions } from '../../actions/';
 import styles from './index.sass';
 
-const RadioButtonField = ({ name, id, value }) =>
-  <div>
-    <label htmlFor={id}>{value}</label>
+const RadioButtonField = ({ name, id, value, icon }) =>
+  <div className="col-xs">
     <Field
+      className={styles.radioInput}
       name={name} id={id} component="input" type="radio"
       value={value} parse={val => Number(val)}
     />
+    <label className={styles.radioLabel} htmlFor={id}>
+      <i className={`fa fa-${icon} ${styles.radioLabelIcon}`} />
+      {value}
+    </label>
   </div>;
 
 RadioButtonField.propTypes = {
   name: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  value: PropTypes.number.isRequired
+  value: PropTypes.number.isRequired,
+  icon: PropTypes.string.isRequired
 };
 
 const CreateGame = ({ handleSubmit, ownHandleSubmit, userUID }) =>
-  <div className="create-game-modal">
+  <div>
     <Modal isOpen>
-      <h2>Crear partida</h2>
-      <form
-        className="create-game-form"
-        onSubmit={handleSubmit(values => ownHandleSubmit(values, userUID))}
-      >
-        <label htmlFor="playersCount">Players 👥</label>
-        <RadioButtonField name="playersCount" id="players-count-2" value={2} />
-        <RadioButtonField name="playersCount" id="players-count-4" value={4} />
-        <RadioButtonField name="playersCount" id="players-count-6" value={6} />
+      <div className={styles.createGameModal}>
+        <h2 className={styles.title}>Create game</h2>
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
+            ownHandleSubmit(handleSubmit(), userUID);
+          }}
+        >
+          <label className={styles.inputGroupLabel} htmlFor="playersCount">Players</label>
+          <div className={`row ${styles.inputGroupContainer}`}>
+            <RadioButtonField name="playersCount" id="players-count-2" value={2} icon="users" />
+            <RadioButtonField name="playersCount" id="players-count-4" value={4} icon="users" />
+            <RadioButtonField name="playersCount" id="players-count-6" value={6} icon="users" />
+          </div>
 
-        <label htmlFor="points">Points to play 💯</label>
-        <RadioButtonField name="points" id="points-15" value={15} />
-        <RadioButtonField name="points" id="points-30" value={30} />
+          <label className={styles.inputGroupLabel} htmlFor="points">Points to win</label>
+          <div className={`row ${styles.inputGroupContainer}`}>
+            <RadioButtonField name="points" id="points-15" value={15} icon="star" />
+            <RadioButtonField name="points" id="points-30" value={30} icon="star" />
+          </div>
 
-        <label htmlFor="waitingTime">Waiting time 🕒</label>
-        <RadioButtonField name="waitingTime" id="waiting-time-20" value={20} />
-        <RadioButtonField name="waitingTime" id="waiting-time-40" value={40} />
+          <label className={styles.inputGroupLabel} htmlFor="waitingTime">Waiting time</label>
+          <div className={`row ${styles.inputGroupContainer}`}>
+            <RadioButtonField name="waitingTime" id="waiting-time-20" value={20} icon="clock-o" />
+            <RadioButtonField name="waitingTime" id="waiting-time-40" value={40} icon="clock-o" />
+          </div>
 
-        <input type="submit" value="Add game" />
-        <Link to="/"><button>Cancelar</button></Link>
-      </form>
+          <div className={styles.btnContainer}>
+            <Link to="/">
+              <button className={styles.cancelBtn}>Cancelar</button>
+            </Link>
+            <input className={styles.createGameBtn} type="submit" value="Add game" />
+          </div>
+        </form>
+      </div>
     </Modal>
   </div>;
 
 CreateGame.propTypes = {
-  // http://stackoverflow.com/questions/37539601/redux-form-handlesubmit-how-to-access-store-state
-  // Submit handler from redux-form don't have access to component props
   handleSubmit: PropTypes.func.isRequired,
-  // Custom submit handler with access to the redux store state
   ownHandleSubmit: PropTypes.func.isRequired,
   userUID: PropTypes.string.isRequired
 };
@@ -68,6 +84,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(gamesActions.createGame({
       started: false,
       createdBy: userUID,
+      players: [userUID],
       configuration: { ...values }
     }));
   }
@@ -85,11 +102,5 @@ export default reduxForm({
     points: 15,
     waitingTime: 20
   },
-  onSubmit: (values, dispatch, props) => {
-    dispatch(gamesActions.createGame({
-      started: false,
-      createdBy: props.userUID,
-      configuration: { ...values }
-    }));
-  }
+  onSubmit: values => values
 })(connectedCreateGame);

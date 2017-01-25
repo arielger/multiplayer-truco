@@ -13,8 +13,9 @@ class Modal extends React.Component {
     return (
       <ReactModal
         isOpen={isOpen}
-        className={styles.modalContent}
+        className={`${styles.modalContent}`}
         overlayClassName={styles.modalOverlay}
+        contentLabel="Modal"
         {...this.props}
       >
         {children}
