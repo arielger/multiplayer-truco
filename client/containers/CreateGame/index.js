@@ -26,7 +26,7 @@ RadioButtonField.propTypes = {
   icon: PropTypes.string.isRequired
 };
 
-const CreateGame = ({ handleSubmit, ownHandleSubmit, userUID }) =>
+const CreateGame = ({ handleSubmit, ownHandleSubmit, userId }) =>
   <div>
     <Modal isOpen>
       <div className={styles.createGameModal}>
@@ -34,7 +34,7 @@ const CreateGame = ({ handleSubmit, ownHandleSubmit, userUID }) =>
         <form
           onSubmit={(event) => {
             event.preventDefault();
-            ownHandleSubmit(handleSubmit(), userUID);
+            ownHandleSubmit(handleSubmit(), userId);
           }}
         >
           <label className={styles.inputGroupLabel} htmlFor="playersCount">Players</label>
@@ -70,23 +70,26 @@ const CreateGame = ({ handleSubmit, ownHandleSubmit, userUID }) =>
 CreateGame.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   ownHandleSubmit: PropTypes.func.isRequired,
-  userUID: PropTypes.string.isRequired
+  userId: PropTypes.string.isRequired
 };
 
 // Connect
 
 const mapStateToProps = state => ({
-  userUID: state.user.data.uid
+  userId: state.user.data.uid
 });
 
 const mapDispatchToProps = dispatch => ({
-  ownHandleSubmit: (values, userUID) => {
-    dispatch(gamesActions.createGame({
-      started: false,
-      createdBy: userUID,
-      players: [userUID],
-      configuration: { ...values }
-    }));
+  ownHandleSubmit: (values, userId) => {
+    // Push new game to firebase
+    dispatch(gamesActions.createGame(
+      {
+        started: false,
+        createdBy: userId,
+        configuration: { ...values }
+      },
+      userId
+    ));
   }
 });
 

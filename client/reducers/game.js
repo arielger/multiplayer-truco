@@ -3,9 +3,7 @@ import {
   LEAVE_GAME
 } from '../actions/action-types';
 
-// @todo: complete
-
-const game = (state, action) => {
+const game = (state = null, action) => {
   switch (action.type) {
     case JOIN_GAME:
       return state;

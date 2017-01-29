@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styles from './index.sass';
 
 class WaitRoomGame extends Component {
   componentDidMount() {
@@ -9,8 +10,10 @@ class WaitRoomGame extends Component {
   }
   render() {
     return (
-      <div>
-        <h1>Wait room game / Game: XXX</h1>
+      <div className={styles.waitRoom}>
+        <div className="container">
+          <h2 className={styles.title}>Waiting for more players to join the game.</h2>
+        </div>
       </div>
     );
   }

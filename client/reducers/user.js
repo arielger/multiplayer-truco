@@ -1,7 +1,6 @@
 import {
   SIGN_IN_START,
   SIGN_IN_SUCCESS,
-  SIGN_IN_ERROR, // @todo
   SIGN_OUT_SUCCESS,
   INIT_AUTH
 } from '../actions/action-types';

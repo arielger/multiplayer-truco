@@ -12,7 +12,7 @@ const config = {
   entry: [
     ...DEBUG ? [
       'react-hot-loader/patch', // activate HMR for react
-      'webpack-hot-middleware/client'
+      'webpack-hot-middleware/client?reload=true' // reload the page if HMR fails
     ] : [],
     'normalize.css/normalize.css',
     'flexboxgrid/dist/flexboxgrid.min.css',
@@ -64,7 +64,7 @@ const config = {
     ] : []
   ],
   target: 'web',
-  devtool: 'source-map'
+  devtool: DEBUG ? 'eval-source-map' : 'source-map'
 };
 
 module.exports = config;

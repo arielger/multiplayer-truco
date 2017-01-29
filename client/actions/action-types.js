@@ -1,13 +1,14 @@
 // GAMES
 
 export const LOAD_GAMES = 'LOAD_GAMES';
-export const UNLOAD_GAMES = 'UNLOAD_GAMES'; // @todo
+export const UNLOAD_GAMES = 'UNLOAD_GAMES';
 
-// GAME
+export const CREATE_GAME_REQUESTED = 'CREATE_GAME_REQUESTED';
+export const CREATE_GAME_FULFILLED = 'CREATE_GAME_FULFILLED';
+export const CREATE_GAME_REJECTED = 'CREATE_GAME_REJECTED';
 
-export const CREATE_GAME = 'CREATE_GAME';
-export const JOIN_GAME = 'JOIN_GAME'; // @todo
-export const LEAVE_GAME = 'LEAVE_GAME'; // @todo
+export const JOIN_GAME = 'JOIN_GAME';
+export const LEAVE_GAME = 'LEAVE_GAME';
 
 // USER
 

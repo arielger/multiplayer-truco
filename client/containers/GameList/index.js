@@ -1,43 +1,31 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import { GameListItem } from '../../components';
 import { gamesActions } from '../../actions';
 import { getAllGames } from '../../reducers/games';
 import styles from './index.sass';
 
+const EmptyState = () =>
+  <div className={styles.emptyState}>
+    <i className={`fa fa-gamepad ${styles.emptyStateIcon}`} aria-hidden="true" />
+    <h5 className={styles.emptyStateText}>
+      There are no games to play. <br />
+      You can create a new game and invite your friends.
+    </h5>
+  </div>;
+
 export class GameList extends Component {
-  constructor() {
-    super();
-
-    this.renderEmptyState = this.renderEmptyState.bind(this);
-  }
-
   componentDidMount() {
     this.props.loadGames();
   }
 
   componentWillUnmount() {
-    // this.props.unloadGames();
+    this.props.unloadGames();
   }
 
-  renderEmptyState() {
-    return (
-      <div className={styles.emptyState}>
-        <i className={`fa fa-gamepad ${styles.emptyStateIcon}`} aria-hidden="true" />
-        <h5 className={styles.emptyStateText}>
-          There are no games to play. <br />
-          You can create a new game and invite your friends.
-        </h5>
-      </div>
-    );
-  }
   render() {
     const { games } = this.props;
-
-    if (!games.length) {
-      return this.renderEmptyState();
-    }
+    if (!games.length) return <EmptyState />;
 
     return (
       <ul className={`${styles.gameList} row`}>

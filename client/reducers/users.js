@@ -29,4 +29,6 @@ export default users;
 // Selectors
 
 export const getAllConnectedUsers = state =>
-  state.users.allIds.map(userId => state.users.allIds[userId]);
+  state.users.allIds.map(userId => state.users.byId[userId]);
+
+export const getUserById = (state, userId) => state.users.byId[userId];
