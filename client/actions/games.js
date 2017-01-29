@@ -2,22 +2,33 @@ import { firebaseDatabase } from '../firebase';
 import {
   LOAD_GAMES,
   UNLOAD_GAMES,
-  JOIN_GAME,
-  LEAVE_GAME,
   CREATE_GAME_REQUESTED,
   CREATE_GAME_FULFILLED,
-  CREATE_GAME_REJECTED
+  CREATE_GAME_REJECTED,
+  JOIN_GAME,
+  LEAVE_GAME,
+  LOAD_GAME
 } from './action-types';
 
 const gamesRef = firebaseDatabase.ref('games');
 
 export function joinGame(userId, gameId) {
-  // Push new player to game ref
-  gamesRef.child(`${gameId}/players`).push(userId);
+  return (dispatch) => {
+    dispatch({ type: JOIN_GAME });
 
-  return {
-    type: JOIN_GAME,
-    payload: { userId, gameId }
+    // Push new player to game ref
+    gamesRef.child(`${gameId}/players`).push(userId);
+
+    // Get firebase current game value
+    gamesRef.child(gameId).on('value', (snapshot) => {
+      dispatch({
+        type: LOAD_GAME,
+        payload: {
+          ...snapshot.val(),
+          id: gameId
+        }
+      });
+    });
   };
 }
 
@@ -58,14 +69,16 @@ export function unloadGames() {
   return { type: UNLOAD_GAMES };
 }
 
-export function createGame(game, userId) {
+export function createGame(game, userId, router) {
   return (dispatch) => {
     dispatch(createGameRequested());
 
     gamesRef.push(game)
       .then((data) => {
         dispatch(createGameFulfilled());
-        dispatch(joinGame(userId, data.key));
+
+        // Transition to game waiting-room
+        router.transitionTo(`/partida/${data.key}`);
       })
       .catch((error) => {
         dispatch(createGameRejected(error));

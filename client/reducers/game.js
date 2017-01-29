@@ -1,14 +1,14 @@
 import {
-  JOIN_GAME,
+  LOAD_GAME,
   LEAVE_GAME
 } from '../actions/action-types';
 
 const game = (state = null, action) => {
   switch (action.type) {
-    case JOIN_GAME:
-      return state;
+    case LOAD_GAME:
+      return action.payload;
     case LEAVE_GAME:
-      return state;
+      return null;
     default:
       return state;
   }

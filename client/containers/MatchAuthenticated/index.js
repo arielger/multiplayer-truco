@@ -13,7 +13,9 @@ const MatchAuthenticated = ({
     <Match
       {...rest}
       render={(props) => {
-        if (matchWhenAuthenticated === isAuthenticated) return (render ? render() : <Component />);
+        if (matchWhenAuthenticated === isAuthenticated) {
+          return (render ? render() : <Component {...props} />);
+        }
 
         return (
           <Redirect

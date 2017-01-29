@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { BrowserRouter, Match } from 'react-router';
 import { connect } from 'react-redux';
-import { MatchAuthenticated, Header, Authentication, Home, WaitRoomGame } from '../';
+import { MatchAuthenticated, Header, Authentication, Home, Game } from '../';
 import './index.sass';
 
 const App = ({ isAuthenticated }) =>
@@ -38,7 +38,7 @@ const App = ({ isAuthenticated }) =>
         isAuthenticated={isAuthenticated}
         pattern="/partida/:gameId"
         exactly
-        component={WaitRoomGame}
+        component={Game}
       />
     </div>
   </BrowserRouter>;

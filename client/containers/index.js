@@ -4,6 +4,7 @@ export Authentication from './Authentication';
 export MatchAuthenticated from './MatchAuthenticated';
 export Home from './Home';
 export Game from './Game';
-export WaitRoomGame from './WaitRoomGame';
+export WaitRoom from './WaitRoom';
+export Board from './Board';
 export CreateGame from './CreateGame';
 export GameList from './GameList';
