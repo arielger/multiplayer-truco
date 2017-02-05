@@ -1,9 +1,10 @@
 import {
   SIGN_IN_START,
   SIGN_IN_SUCCESS,
+  SIGN_IN_ERROR,
   SIGN_OUT_SUCCESS,
   INIT_AUTH
-} from '../actions/action-types';
+} from './actionTypes';
 
 const initialState = {
   authenticated: false,
@@ -20,12 +21,20 @@ const user = (state = Object.assign({}, initialState), action) => {
         loading: true
       });
 
+    case SIGN_IN_ERROR:
+      return Object.assign({}, state, {
+        authenticated: false,
+        loading: false,
+        error: action.payload
+      });
+
     case INIT_AUTH:
     case SIGN_IN_SUCCESS:
       if (!action.payload) return state;
       return {
         loading: false,
         authenticated: true,
+        error: null,
         data: {
           uid: action.payload.uid,
           name: action.payload.displayName,

@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { WaitRoom, Board } from '../';
-import { gamesActions } from '../../actions';
-import { getUserById } from '../../reducers/users';
+import { actions as gameActions } from '../../game';
+import { selectors as usersSelectors } from '../../users';
 import './index.sass';
 
 const GameLoader = () => <h5>Loading game</h5>;
@@ -47,12 +47,12 @@ const mapStateToProps = state => ({
   game: state.game,
   players: state.game && Object.keys(state.game.players).map((key) => {
     const userId = state.game.players[key];
-    return getUserById(state, userId);
+    return usersSelectors.getUserById(state, userId);
   })
 });
 
 const mapDispatchToProps = dispatch => ({
-  joinGame: (userId, gameId) => dispatch(gamesActions.joinGame(userId, gameId))
+  joinGame: (userId, gameId) => dispatch(gameActions.joinGame(userId, gameId))
 });
 
 export default connect(

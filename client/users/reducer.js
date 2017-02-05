@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { LOAD_USERS } from '../actions/action-types';
+import { LOAD_USERS } from './actionTypes';
 
 const byId = (state = {}, action) => {
   switch (action.type) {
@@ -25,10 +25,3 @@ const users = combineReducers({
 });
 
 export default users;
-
-// Selectors
-
-export const getAllConnectedUsers = state =>
-  state.users.allIds.map(userId => state.users.byId[userId]);
-
-export const getUserById = (state, userId) => state.users.byId[userId];

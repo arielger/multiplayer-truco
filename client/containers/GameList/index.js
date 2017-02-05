@@ -1,8 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { GameListItem } from '../../components';
-import { gamesActions } from '../../actions';
-import { getAllGames } from '../../reducers/games';
+import {
+  actions as gamesActions,
+  selectors as gamesSelectors
+} from '../../games';
 import styles from './index.sass';
 
 const EmptyState = () =>
@@ -50,12 +52,10 @@ GameList.propTypes = {
 };
 
 
-// -------------------------------------
-//  CONNECT
-// -------------------------------------
+// Connect
 
 const mapStateToProps = state => ({
-  games: getAllGames(state)
+  games: gamesSelectors.getGameUIList(state)
 });
 
 const mapDispatchToProps = {

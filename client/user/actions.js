@@ -6,9 +6,8 @@ import {
   SIGN_IN_START,
   SIGN_IN_SUCCESS,
   SIGN_IN_ERROR,
-  SIGN_OUT_SUCCESS,
-  LOAD_USERS
-} from './action-types';
+  SIGN_OUT_SUCCESS
+} from './actionTypes';
 
 const usersRef = firebaseDatabase.ref('users');
 
@@ -111,16 +110,4 @@ export function signOut() {
     firebaseAuth.signOut()
       .then(() => dispatch(signOutSuccess()));
   };
-}
-
-export function loadUsers(dispatch) {
-  return new Promise((resolve) => {
-    usersRef.on('value', (snapshot) => {
-      dispatch({
-        type: LOAD_USERS,
-        payload: snapshot.val()
-      });
-      resolve();
-    });
-  });
 }

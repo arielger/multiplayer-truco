@@ -1,13 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 
-class Board extends Component {
-  render() {
-    return (
-      <div>
-        Game board
-      </div>
-    );
-  }
-}
+const Board = () => <div>Game board</div>;
 
 export default Board;

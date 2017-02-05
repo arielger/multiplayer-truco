@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { Loader } from '../../components';
-import { userActions } from '../../actions';
+import { actions as userActions } from '../../user';
 import styles from './index.sass';
 
 const SocialAuthButton = ({ name, onClick }) =>

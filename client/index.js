@@ -4,8 +4,9 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { App } from './containers';
-import reducer from './reducers';
-import { userActions } from './actions';
+import reducer from './reducer';
+import { actions as userActions } from './user';
+import { actions as usersActions } from './users';
 
 /* eslint-disable no-underscore-dangle */
 // From redux-dev-tools extension github
@@ -27,7 +28,7 @@ const renderRoot = () => {
 
 // Render root application component when authentication data is in the store
 userActions.initAuth(store.dispatch)
-  .then(() => userActions.loadUsers(store.dispatch))
+  .then(() => usersActions.loadUsers(store.dispatch))
   .then(() => renderRoot())
   .catch(error => console.log(error)); // eslint-disable-line no-console
 

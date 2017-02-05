@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { userActions } from '../../actions/';
+import { actions as userActions } from '../../user';
 import styles from './index.sass';
 
 // Generate random avatar with Adorable API
@@ -61,9 +61,7 @@ Header.propTypes = {
   signOut: PropTypes.func.isRequired
 };
 
-// -------------------------------------
-//  CONNECT
-// -------------------------------------
+// Connect
 
 const mapStateToProps = state => ({
   avatar: state.user.data.avatar,

@@ -47,10 +47,6 @@ App.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired
 };
 
-// -------------------------------------
-//  CONNECT
-// -------------------------------------
-
 const mapStateToProps = state => ({
   isAuthenticated: state.user.authenticated
 });
@@ -58,4 +54,3 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps
 )(App);
-
