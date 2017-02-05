@@ -25,7 +25,7 @@ class Game extends Component {
 
     // If waiting for more players to enter to the game, show waiting room component
     if (players.length < game.configuration.playersCount) {
-      return <WaitRoom players={players} />;
+      return <WaitRoom players={players} playersCount={game.configuration.playersCount} />;
     }
 
     return <Board />;

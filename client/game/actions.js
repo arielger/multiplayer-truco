@@ -28,6 +28,7 @@ export function joinGame(userId, gameId) {
 }
 
 export function leaveGame(userId, gameId) {
+  // @todo: remove the player from the game players list
   return {
     type: LEAVE_GAME,
     payload: { userId, gameId }
