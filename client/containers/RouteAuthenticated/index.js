@@ -1,16 +1,16 @@
 import React, { PropTypes } from 'react';
-import { Match, Redirect } from 'react-router';
+import { Route, Redirect } from 'react-router-dom';
 
-// MatchAuthenticated based on react-router example
+// RouteAuthenticated based on react-router example
 // https://react-router.now.sh/auth-workflow
-const MatchAuthenticated = ({
+const RouteAuthenticated = ({
   matchWhenAuthenticated,
   isAuthenticated,
   component: Component,
   render,
   ...rest
   }) =>
-    <Match
+    <Route
       {...rest}
       render={(props) => {
         if (matchWhenAuthenticated === isAuthenticated) {
@@ -28,11 +28,11 @@ const MatchAuthenticated = ({
       }}
     />;
 
-MatchAuthenticated.defaultProps = {
+RouteAuthenticated.defaultProps = {
   matchWhenAuthenticated: true
 };
 
-MatchAuthenticated.propTypes = {
+RouteAuthenticated.propTypes = {
   matchWhenAuthenticated: PropTypes.bool,
   isAuthenticated: PropTypes.bool.isRequired,
   component: PropTypes.oneOfType([
@@ -42,4 +42,4 @@ MatchAuthenticated.propTypes = {
   render: PropTypes.func
 };
 
-export default MatchAuthenticated;
+export default RouteAuthenticated;

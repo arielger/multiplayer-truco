@@ -51,7 +51,7 @@ export function createGame(game, userId, router) {
         dispatch(createGameFulfilled());
 
         // Transition to game waiting-room
-        router.transitionTo(`/partida/${data.key}`);
+        router.push(`/partida/${data.key}`);
       })
       .catch((error) => {
         dispatch(createGameRejected(error));

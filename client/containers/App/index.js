@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
-import { BrowserRouter, Match } from 'react-router';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { MatchAuthenticated, Header, Authentication, Home, Game } from '../';
+import { RouteAuthenticated, Header, Authentication, Home, Game } from '../';
 import './index.sass';
 
 const App = ({ isAuthenticated }) =>
@@ -10,34 +10,34 @@ const App = ({ isAuthenticated }) =>
       <div className="modals-container" />
 
       {/* Show Header component if the route isn't /login */}
-      <Match
-        pattern="/"
-        render={({ location }) => !location.pathname.startsWith('/login') && <Header />}
-      />
+      <Switch>
+        <Route path="/login" component={null} />
+        <Route path="/" component={Header} />
+      </Switch>
 
-      <MatchAuthenticated
+      <RouteAuthenticated
         matchWhenAuthenticated={false}
         isAuthenticated={isAuthenticated}
-        pattern="/login"
-        exactly
+        path="/login"
+        exact
         component={Authentication}
       />
-      <MatchAuthenticated
+      <RouteAuthenticated
         isAuthenticated={isAuthenticated}
-        pattern="/"
-        exactly
+        path="/"
+        exact
         component={Home}
       />
-      <MatchAuthenticated
+      <RouteAuthenticated
         isAuthenticated={isAuthenticated}
-        pattern="/crear-partida"
-        exactly
+        path="/crear-partida"
+        exact
         render={() => <Home createGame />}
       />
-      <MatchAuthenticated
+      <RouteAuthenticated
         isAuthenticated={isAuthenticated}
-        pattern="/partida/:gameId"
-        exactly
+        path="/partida/:gameId"
+        exact
         component={Game}
       />
     </div>
