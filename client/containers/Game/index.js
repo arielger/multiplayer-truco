@@ -8,14 +8,22 @@ import './index.sass';
 const GameLoader = () => <h5>Loading game</h5>;
 
 class Game extends Component {
-  componentDidMount() {
-    const { userId, params, joinGame } = this.props;
+  constructor(props) {
+    super();
 
-    // Load game and add current player to the players list
-    joinGame(userId, params.gameId);
+    this.gameId = props.match.params.gameId;
+  }
+  componentDidMount() {
+    const { userId, joinGame } = this.props;
+
+    // Load game data and add current player to the players list
+    this.userKey = joinGame(userId, this.gameId);
   }
   componentWillUnmount() {
-    // @todo: Remove game state from store
+    const { userId, game, leaveGame } = this.props;
+
+    // Remove user from the players list if he leaves the game
+    leaveGame(userId, this.userKey, this.gameId, game.createdBy, game.started);
   }
   render() {
     const { game, players } = this.props;
@@ -35,9 +43,10 @@ class Game extends Component {
 Game.propTypes = {
   game: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   players: PropTypes.array, // eslint-disable-line react/forbid-prop-types
-  params: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  match: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   userId: PropTypes.string.isRequired,
-  joinGame: PropTypes.func.isRequired
+  joinGame: PropTypes.func.isRequired,
+  leaveGame: PropTypes.func.isRequired
 };
 
 // Connect
@@ -51,9 +60,10 @@ const mapStateToProps = state => ({
   })
 });
 
-const mapDispatchToProps = dispatch => ({
-  joinGame: (userId, gameId) => dispatch(gameActions.joinGame(userId, gameId))
-});
+const mapDispatchToProps = {
+  joinGame: gameActions.joinGame,
+  leaveGame: gameActions.leaveGame
+};
 
 export default connect(
   mapStateToProps,
