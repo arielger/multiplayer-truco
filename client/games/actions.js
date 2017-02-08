@@ -38,8 +38,11 @@ function createGameFulfilled() {
 }
 
 function createGameRejected(error) {
-  console.error(error); // eslint-disable-line no-console
-  return { type: CREATE_GAME_REJECTED };
+  console.error('ERROR creating new game: ', error); // eslint-disable-line no-console
+  return {
+    type: CREATE_GAME_REJECTED,
+    payload: error
+  };
 }
 
 export function createGame(game, userId, router) {
