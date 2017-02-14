@@ -31,9 +31,11 @@ function joinGameRejected(error) {
 
 export function joinGame(userId, gameId) {
   return (dispatch) => {
+    const gameRef = gamesRef.child(gameId);
+
     dispatch(joinGameRequested());
 
-    const joinedUserRef = gamesRef.child(`${gameId}/players`).push(userId);
+    const joinedUserRef = gameRef.child('players').push(userId);
 
     joinedUserRef
       .then((data) => {
@@ -41,11 +43,20 @@ export function joinGame(userId, gameId) {
         data.ref.onDisconnect().remove();
 
         // Load created game firebase info into redux store
-        gamesRef.child(gameId).on('value', (snapshot) => {
+        gameRef.on('value', (snapshot) => {
+          const game = snapshot.val();
+
           dispatch(joinGameFulfilled({
-            ...snapshot.val(),
+            ...game,
             id: gameId
           }));
+
+          // Set the game as started if the players are fulfilled
+          if (Object.keys(game.players).length === game.configuration.playersCount) {
+            gameRef.update({
+              started: true
+            });
+          }
         });
       })
       .catch((error) => {
