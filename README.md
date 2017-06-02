@@ -5,11 +5,11 @@ Multiplayer argentinian **Truco** game made with react, redux and firebase 🔥�
 You can check more about the game in the [Wikipedia page](https://en.wikipedia.org/wiki/Truco) or [read the instructions](https://www.pagat.com/put/truco_ar.html) to understand how to play.
 
 
-## Screenshots 📷
+## Screenshots
 
 ![Login screen](https://cloud.githubusercontent.com/assets/6318057/22723440/30418f86-ed9d-11e6-977a-8e61d3876892.png)
 
-## Technologies 💻
+## Technologies
 
 * react
 * redux
