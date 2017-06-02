@@ -10,7 +10,11 @@ const PlayerItem = ({ player }) =>
 
 const EmptyItem = () =>
   <div className={styles.player}>
-    <div className={styles.playerAvatar} />
+    <img
+      className={styles.playerAvatar}
+      src="http://www.teequilla.com/images/tq/empty-avatar.png"
+      alt="Waiting for user"
+    />
   </div>;
 
 PlayerItem.propTypes = {

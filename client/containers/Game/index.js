@@ -53,10 +53,9 @@ const mapStateToProps = state => ({
   userId: state.user.data.uid,
   game: state.game,
   players: _get(state, 'game.players') ? (
-    Object.keys(state.game.players).map((key) => {
-      const userId = state.game.players[key];
-      return usersSelectors.getUserById(state, userId);
-    })
+    Object.keys(state.game.players).map(key =>
+      usersSelectors.getUserById(state, state.game.players[key].id)
+    )
   ) : []
 });
 

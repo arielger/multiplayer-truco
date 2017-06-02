@@ -14,7 +14,6 @@ const gamesRef = firebaseDatabase.ref('games');
 export function loadGame(gameId) {
   return (dispatch) => {
     gamesRef.child(gameId).on('value', (snapshot) => {
-      console.log(snapshot.val());
       dispatch({
         type: LOAD_GAME,
         payload: snapshot.val()
