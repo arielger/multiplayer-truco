@@ -1,11 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import _get from 'lodash/get';
 import { WaitRoom, Board } from '../';
 import { actions as gameActions } from '../../game';
 import { selectors as usersSelectors } from '../../users';
 import './index.sass';
-
-const GameLoader = () => <h5>Loading game</h5>;
 
 class Game extends Component {
   constructor(props) {
@@ -16,23 +15,22 @@ class Game extends Component {
   componentDidMount() {
     const { userId, joinGame } = this.props;
 
-    // Load game data and add current player to the players list
-    this.userKey = joinGame(userId, this.gameId);
+    joinGame(userId, this.gameId)
+      .then(userKey => console.log(userKey))
+      .catch(error => console.log(error));
   }
   componentWillUnmount() {
     const { userId, game, leaveGame } = this.props;
 
-    // Remove user from the players list if he leaves the game
     leaveGame(userId, this.userKey, this.gameId, game.createdBy, game.started);
   }
   render() {
     const { game, players } = this.props;
 
-    // If game is loading show loader
-    if (!game) return <GameLoader />;
+    if (!game) return <h1>Game is loading ...</h1>;
 
     // If waiting for more players to enter to the game, show waiting room component
-    if (players.length < game.configuration.playersCount) {
+    if (!!players.length || players.length < game.configuration.playersCount) {
       return <WaitRoom players={players} playersCount={game.configuration.playersCount} />;
     }
 
@@ -54,10 +52,12 @@ Game.propTypes = {
 const mapStateToProps = state => ({
   userId: state.user.data.uid,
   game: state.game,
-  players: state.game && Object.keys(state.game.players).map((key) => {
-    const userId = state.game.players[key];
-    return usersSelectors.getUserById(state, userId);
-  })
+  players: _get(state, 'game.players') ? (
+    Object.keys(state.game.players).map((key) => {
+      const userId = state.game.players[key];
+      return usersSelectors.getUserById(state, userId);
+    })
+  ) : []
 });
 
 const mapDispatchToProps = {

@@ -52,11 +52,7 @@ export function createGame(game, userId, router) {
     gamesRef.push(game)
       .then((data) => {
         dispatch(createGameFulfilled());
-
-        // Remove game when the creator disconnects
         data.ref.onDisconnect().remove();
-
-        // Transition to game waiting-room
         router.push(`/partida/${data.key}`);
       })
       .catch((error) => {
