@@ -38,7 +38,7 @@ const user = (state = Object.assign({}, initialState), action) => {
         data: {
           uid: action.payload.uid,
           name: action.payload.displayName,
-          avatar: action.payload.photoURL
+          avatar: action.payload.providerData[0].photoURL
         }
       };
 

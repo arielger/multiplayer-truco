@@ -11,7 +11,7 @@ const getGamePlayers = (state, game) => {
   if (!game.players) return [];
 
   return Object.keys(game.players).map(key =>
-    usersSelectors.getUserById(state, game.players[key])
+    usersSelectors.getUserById(state, game.players[key].id)
   );
 };
 

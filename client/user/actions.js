@@ -23,7 +23,7 @@ function addConnectedUser(user) {
     userRef.set({
       id: user.uid,
       name: user.displayName,
-      avatar: user.photoURL
+      avatar: user.providerData[0].photoURL
     });
   });
 }
@@ -79,9 +79,7 @@ export function initAuth(dispatch) {
         dispatch(initializeAuth(user));
 
         // Add user to connected users list if he is already authenticated
-        if (_.get(user, 'uid')) {
-          addConnectedUser(user);
-        }
+        if (_.get(user, 'uid')) addConnectedUser(user);
 
         unsuscribe();
         resolve();
