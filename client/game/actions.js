@@ -1,3 +1,4 @@
+import { get } from "lodash";
 import { firebaseDatabase } from "../firebase";
 import {
   JOIN_GAME_REQUESTED,
@@ -46,29 +47,33 @@ export function joinGame(userId, gameId) {
     const gamePlayersRef = gameRef.child("players");
 
     return new Promise((resolve, reject) => {
+      dispatch(loadGame(gameId));
       dispatch(joinGameRequested());
 
-      gamePlayersRef
-        .push({
-          id: userId
-        })
-        .then(data => {
-          data.ref.onDisconnect().remove();
+      gameRef
+        .once("value")
+        .then(snapshot => {
+          const game = snapshot.val();
+          const newPlayerKey = gamePlayersRef.push().key;
+          const updates = {
+            players: {}
+          };
 
-          dispatch(loadGame(gameId));
+          updates.players[newPlayerKey] = {
+            id: userId
+          };
 
-          // Start game if it reaches maximum players
-          gameRef.once("value").then(snapshot => {
-            const game = snapshot.val();
-
-            if (
-              Object.keys(game.players).length ===
+          if (
+            get(game, "players") &&
+            Object.keys(game.players).length + 1 ===
               game.configuration.playersCount
-            ) {
-              gameRef.update({ started: true });
-            }
-          });
+          ) {
+            updates.started = true;
+          }
 
+          return gameRef.update(updates);
+        })
+        .then(() => {
           dispatch(joinGameFulfilled());
           resolve();
         })
