@@ -55,6 +55,16 @@ export function joinGame(userId, gameId) {
           data.ref.onDisconnect().remove();
 
           dispatch(loadGame(gameId));
+
+          // Start game if it reaches maximum players
+          gameRef.once('value').then((snapshot) => {
+            const game = snapshot.val();
+
+            if (Object.keys(game.players).length === game.configuration.playersCount) {
+              gameRef.update({ started: true });
+            }
+          });
+
           dispatch(joinGameFulfilled());
           resolve();
         })
