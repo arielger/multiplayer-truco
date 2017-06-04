@@ -1,20 +1,22 @@
-import React from 'react';
-import { render } from 'react-dom';
-import { createStore, applyMiddleware, compose } from 'redux';
-import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
-import { App } from './containers';
-import reducer from './reducer';
-import { actions as userActions } from './user';
-import { actions as usersActions } from './users';
+import React from "react";
+import { render } from "react-dom";
+import { createStore, applyMiddleware, compose } from "redux";
+import { Provider } from "react-redux";
+import thunk from "redux-thunk";
+import { App } from "./containers";
+import reducer from "./reducer";
+import { actions as userActions } from "./user";
+import { actions as usersActions } from "./users";
 
 /* eslint-disable no-underscore-dangle */
 // From redux-dev-tools extension github
 // https://github.com/zalmoxisus/redux-devtools-extension#2-use-with-redux
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducer, {}, composeEnhancers(
-  applyMiddleware(thunk)
-));
+const store = createStore(
+  reducer,
+  {},
+  composeEnhancers(applyMiddleware(thunk))
+);
 /* eslint-enable */
 
 const renderRoot = () => {
@@ -22,12 +24,13 @@ const renderRoot = () => {
     <Provider store={store}>
       <App />
     </Provider>,
-    document.getElementById('app')
+    document.getElementById("app")
   );
 };
 
 // Render root application component when authentication data is in the store
-userActions.initAuth(store.dispatch)
+userActions
+  .initAuth(store.dispatch)
   .then(() => usersActions.loadUsers(store.dispatch))
   .then(() => renderRoot())
   .catch(error => console.log(error)); // eslint-disable-line no-console
@@ -35,14 +38,14 @@ userActions.initAuth(store.dispatch)
 // HMR Configuration
 
 if (module.hot) {
-  module.hot.accept('./containers', () => {
-    const NextApp = require('./containers').App; // eslint-disable-line global-require
+  module.hot.accept("./containers", () => {
+    const NextApp = require("./containers").App; // eslint-disable-line global-require
 
     render(
       <Provider store={store}>
         <NextApp />
       </Provider>,
-      document.getElementById('app')
+      document.getElementById("app")
     );
   });
 }

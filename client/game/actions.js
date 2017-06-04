@@ -1,19 +1,19 @@
-import { firebaseDatabase } from '../firebase';
+import { firebaseDatabase } from "../firebase";
 import {
   JOIN_GAME_REQUESTED,
   JOIN_GAME_FULFILLED,
   JOIN_GAME_REJECTED,
   LEAVE_GAME,
   LOAD_GAME
-} from './actionTypes';
+} from "./actionTypes";
 
-const gamesRef = firebaseDatabase.ref('games');
+const gamesRef = firebaseDatabase.ref("games");
 
 // Load game
 
 export function loadGame(gameId) {
-  return (dispatch) => {
-    gamesRef.child(gameId).on('value', (snapshot) => {
+  return dispatch => {
+    gamesRef.child(gameId).on("value", snapshot => {
       dispatch({
         type: LOAD_GAME,
         payload: snapshot.val()
@@ -33,7 +33,7 @@ function joinGameFulfilled() {
 }
 
 function joinGameRejected(error) {
-  console.error('ERROR joining game: ', error); // eslint-disable-line no-console
+  console.error("ERROR joining game: ", error); // eslint-disable-line no-console
   return {
     type: JOIN_GAME_REJECTED,
     payload: error
@@ -41,26 +41,30 @@ function joinGameRejected(error) {
 }
 
 export function joinGame(userId, gameId) {
-  return (dispatch) => {
+  return dispatch => {
     const gameRef = gamesRef.child(gameId);
-    const gamePlayersRef = gameRef.child('players');
+    const gamePlayersRef = gameRef.child("players");
 
     return new Promise((resolve, reject) => {
       dispatch(joinGameRequested());
 
-      gamePlayersRef.push({
-        id: userId
-      })
-        .then((data) => {
+      gamePlayersRef
+        .push({
+          id: userId
+        })
+        .then(data => {
           data.ref.onDisconnect().remove();
 
           dispatch(loadGame(gameId));
 
           // Start game if it reaches maximum players
-          gameRef.once('value').then((snapshot) => {
+          gameRef.once("value").then(snapshot => {
             const game = snapshot.val();
 
-            if (Object.keys(game.players).length === game.configuration.playersCount) {
+            if (
+              Object.keys(game.players).length ===
+              game.configuration.playersCount
+            ) {
               gameRef.update({ started: true });
             }
           });
@@ -68,7 +72,7 @@ export function joinGame(userId, gameId) {
           dispatch(joinGameFulfilled());
           resolve();
         })
-        .catch((error) => {
+        .catch(error => {
           dispatch(joinGameRejected(error));
           reject(error);
         });

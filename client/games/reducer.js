@@ -1,8 +1,5 @@
-import { combineReducers } from 'redux';
-import {
-  LOAD_GAMES,
-  UNLOAD_GAMES
-} from './actionTypes';
+import { combineReducers } from "redux";
+import { LOAD_GAMES, UNLOAD_GAMES } from "./actionTypes";
 
 const byId = (state = {}, action) => {
   switch (action.type) {

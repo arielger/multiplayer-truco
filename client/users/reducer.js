@@ -1,5 +1,5 @@
-import { combineReducers } from 'redux';
-import { LOAD_USERS } from './actionTypes';
+import { combineReducers } from "redux";
+import { LOAD_USERS } from "./actionTypes";
 
 const byId = (state = {}, action) => {
   switch (action.type) {

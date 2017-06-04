@@ -1,12 +1,13 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { actions as userActions } from '../../user';
-import styles from './index.sass';
+import React, { Component, PropTypes } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { actions as userActions } from "../../user";
+import styles from "./index.sass";
 
 // Generate random avatar with Adorable API
 const avatarSize = 32;
-const generateRandomAvatarURL = str => `https://api.adorable.io/avatars/${avatarSize}/${str}`;
+const generateRandomAvatarURL = str =>
+  `https://api.adorable.io/avatars/${avatarSize}/${str}`;
 
 class Header extends Component {
   constructor() {
@@ -39,12 +40,15 @@ class Header extends Component {
                 </Link>
                 <div className={styles.user} onClick={this.toggleDropdown}>
                   <span className={styles.userCaret} />
-                  <img className={styles.userAvatar} src={avatarSrc} alt="User avatar" />
-                  { this.state.dropdownOpen &&
+                  <img
+                    className={styles.userAvatar}
+                    src={avatarSrc}
+                    alt="User avatar"
+                  />
+                  {this.state.dropdownOpen &&
                     <ul className={styles.userDropdown}>
                       <li><button onClick={signOut}>Sign out</button></li>
-                    </ul>
-                  }
+                    </ul>}
                 </div>
               </div>
             </div>
@@ -72,8 +76,4 @@ const mapDispatchToProps = {
   signOut: userActions.signOut
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Header);
-
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

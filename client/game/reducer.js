@@ -1,7 +1,4 @@
-import {
-  LEAVE_GAME,
-  LOAD_GAME
-} from './actionTypes';
+import { LEAVE_GAME, LOAD_GAME } from "./actionTypes";
 
 const game = (state = null, action) => {
   switch (action.type) {

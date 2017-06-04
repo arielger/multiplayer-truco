@@ -1,10 +1,10 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import _get from 'lodash/get';
-import { WaitRoom, Board } from '../';
-import { actions as gameActions } from '../../game';
-import { selectors as usersSelectors } from '../../users';
-import './index.sass';
+import React, { Component, PropTypes } from "react";
+import { connect } from "react-redux";
+import _get from "lodash/get";
+import { WaitRoom, Board } from "../";
+import { actions as gameActions } from "../../game";
+import { selectors as usersSelectors } from "../../users";
+import "./index.sass";
 
 class Game extends Component {
   constructor(props) {
@@ -29,9 +29,13 @@ class Game extends Component {
 
     if (!game) return <h1>Game is loading ...</h1>;
 
-    // If waiting for more players to enter to the game, show waiting room component
-    if (!!players.length || players.length < game.configuration.playersCount) {
-      return <WaitRoom players={players} playersCount={game.configuration.playersCount} />;
+    if (!game.started) {
+      return (
+        <WaitRoom
+          players={players}
+          playersCount={game.configuration.playersCount}
+        />
+      );
     }
 
     return <Board />;
@@ -52,11 +56,11 @@ Game.propTypes = {
 const mapStateToProps = state => ({
   userId: state.user.data.uid,
   game: state.game,
-  players: _get(state, 'game.players') ? (
-    Object.keys(state.game.players).map(key =>
-      usersSelectors.getUserById(state, state.game.players[key].id)
-    )
-  ) : []
+  players: _get(state, "game.players")
+    ? Object.keys(state.game.players).map(key =>
+        usersSelectors.getUserById(state, state.game.players[key].id)
+      )
+    : []
 });
 
 const mapDispatchToProps = {
@@ -64,7 +68,4 @@ const mapDispatchToProps = {
   leaveGame: gameActions.leaveGame
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Game);
+export default connect(mapStateToProps, mapDispatchToProps)(Game);

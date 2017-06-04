@@ -1,8 +1,8 @@
-import React, { PropTypes } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { RouteAuthenticated, Header, Authentication, Home, Game } from '../';
-import './index.sass';
+import React, { PropTypes } from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { connect } from "react-redux";
+import { RouteAuthenticated, Header, Authentication, Home, Game } from "../";
+import "./index.sass";
 
 const App = ({ isAuthenticated }) =>
   <BrowserRouter>
@@ -51,6 +51,4 @@ const mapStateToProps = state => ({
   isAuthenticated: state.user.authenticated
 });
 
-export default connect(
-  mapStateToProps
-)(App);
+export default connect(mapStateToProps)(App);

@@ -1,20 +1,20 @@
-import firebase from 'firebase';
-import _ from 'lodash';
-import { firebaseAuth, firebaseDatabase } from '../firebase';
+import firebase from "firebase";
+import _ from "lodash";
+import { firebaseAuth, firebaseDatabase } from "../firebase";
 import {
   INIT_AUTH,
   SIGN_IN_START,
   SIGN_IN_SUCCESS,
   SIGN_IN_ERROR,
   SIGN_OUT_SUCCESS
-} from './actionTypes';
+} from "./actionTypes";
 
-const usersRef = firebaseDatabase.ref('users');
+const usersRef = firebaseDatabase.ref("users");
 
 function addConnectedUser(user) {
   const userRef = usersRef.child(user.uid);
 
-  userRef.once('value').then((snapshot) => {
+  userRef.once("value").then(snapshot => {
     if (snapshot.val()) return;
 
     // If the user disconnects from Firebase remove the user from the list
@@ -29,7 +29,7 @@ function addConnectedUser(user) {
 }
 
 function signInSuccess(result) {
-  if (_.get(result, 'user.uid')) addConnectedUser(result.user);
+  if (_.get(result, "user.uid")) addConnectedUser(result.user);
 
   return {
     type: SIGN_IN_SUCCESS,
@@ -57,9 +57,10 @@ function startSignIn() {
 }
 
 function authenticate(provider) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(startSignIn());
-    firebaseAuth.signInWithPopup(provider)
+    firebaseAuth
+      .signInWithPopup(provider)
       .then(result => dispatch(signInSuccess(result)))
       .catch(error => dispatch(signInError(error)));
   };
@@ -75,16 +76,16 @@ function initializeAuth(user) {
 export function initAuth(dispatch) {
   return new Promise((resolve, reject) => {
     const unsuscribe = firebaseAuth.onAuthStateChanged(
-      (user) => {
+      user => {
         dispatch(initializeAuth(user));
 
         // Add user to connected users list if he is already authenticated
-        if (_.get(user, 'uid')) addConnectedUser(user);
+        if (_.get(user, "uid")) addConnectedUser(user);
 
         unsuscribe();
         resolve();
       },
-      (error) => {
+      error => {
         reject(error);
       }
     );
@@ -104,8 +105,7 @@ export function signInWithGithub() {
 }
 
 export function signOut() {
-  return (dispatch) => {
-    firebaseAuth.signOut()
-      .then(() => dispatch(signOutSuccess()));
+  return dispatch => {
+    firebaseAuth.signOut().then(() => dispatch(signOutSuccess()));
   };
 }

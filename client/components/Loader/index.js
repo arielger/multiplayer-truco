@@ -1,5 +1,5 @@
-import React, { PropTypes } from 'react';
-import styles from './index.sass';
+import React, { PropTypes } from "react";
+import styles from "./index.sass";
 
 const Loader = ({ show, children }) => {
   if (!show) return <div>{children}</div>;

@@ -1,17 +1,21 @@
-import React, { PropTypes } from 'react';
-import { Link } from 'react-router-dom';
-import { Field, reduxForm } from 'redux-form';
-import { connect } from 'react-redux';
-import { Modal } from '../../components/';
-import { actions as gamesActions } from '../../games';
-import styles from './index.sass';
+import React, { PropTypes } from "react";
+import { Link } from "react-router-dom";
+import { Field, reduxForm } from "redux-form";
+import { connect } from "react-redux";
+import { Modal } from "../../components/";
+import { actions as gamesActions } from "../../games";
+import styles from "./index.sass";
 
 const RadioButtonField = ({ name, id, value, icon }) =>
   <div className="col-xs">
     <Field
       className={styles.radioInput}
-      name={name} id={id} component="input" type="radio"
-      value={value} parse={val => Number(val)}
+      name={name}
+      id={id}
+      component="input"
+      type="radio"
+      value={value}
+      parse={val => Number(val)}
     />
     <label className={styles.radioLabel} htmlFor={id}>
       <i className={`fa fa-${icon} ${styles.radioLabelIcon}`} />
@@ -32,35 +36,80 @@ const CreateGame = ({ handleSubmit, ownHandleSubmit, userId }, context) =>
       <div className={styles.createGameModal}>
         <h2 className={styles.title}>Create game</h2>
         <form
-          onSubmit={(event) => {
+          onSubmit={event => {
             event.preventDefault();
             ownHandleSubmit(handleSubmit(), userId, context.router);
           }}
         >
-          <label className={styles.inputGroupLabel} htmlFor="playersCount">Players</label>
+          <label className={styles.inputGroupLabel} htmlFor="playersCount">
+            Players
+          </label>
           <div className={`row ${styles.inputGroupContainer}`}>
-            <RadioButtonField name="playersCount" id="players-count-2" value={2} icon="users" />
-            <RadioButtonField name="playersCount" id="players-count-4" value={4} icon="users" />
-            <RadioButtonField name="playersCount" id="players-count-6" value={6} icon="users" />
+            <RadioButtonField
+              name="playersCount"
+              id="players-count-2"
+              value={2}
+              icon="users"
+            />
+            <RadioButtonField
+              name="playersCount"
+              id="players-count-4"
+              value={4}
+              icon="users"
+            />
+            <RadioButtonField
+              name="playersCount"
+              id="players-count-6"
+              value={6}
+              icon="users"
+            />
           </div>
 
-          <label className={styles.inputGroupLabel} htmlFor="points">Points to win</label>
+          <label className={styles.inputGroupLabel} htmlFor="points">
+            Points to win
+          </label>
           <div className={`row ${styles.inputGroupContainer}`}>
-            <RadioButtonField name="points" id="points-15" value={15} icon="star" />
-            <RadioButtonField name="points" id="points-30" value={30} icon="star" />
+            <RadioButtonField
+              name="points"
+              id="points-15"
+              value={15}
+              icon="star"
+            />
+            <RadioButtonField
+              name="points"
+              id="points-30"
+              value={30}
+              icon="star"
+            />
           </div>
 
-          <label className={styles.inputGroupLabel} htmlFor="waitingTime">Waiting time</label>
+          <label className={styles.inputGroupLabel} htmlFor="waitingTime">
+            Waiting time
+          </label>
           <div className={`row ${styles.inputGroupContainer}`}>
-            <RadioButtonField name="waitingTime" id="waiting-time-20" value={20} icon="clock-o" />
-            <RadioButtonField name="waitingTime" id="waiting-time-40" value={40} icon="clock-o" />
+            <RadioButtonField
+              name="waitingTime"
+              id="waiting-time-20"
+              value={20}
+              icon="clock-o"
+            />
+            <RadioButtonField
+              name="waitingTime"
+              id="waiting-time-40"
+              value={40}
+              icon="clock-o"
+            />
           </div>
 
           <div className={styles.btnContainer}>
             <Link to="/">
               <button className={styles.cancelBtn}>Cancelar</button>
             </Link>
-            <input className={styles.createGameBtn} type="submit" value="Add game" />
+            <input
+              className={styles.createGameBtn}
+              type="submit"
+              value="Add game"
+            />
           </div>
         </form>
       </div>
@@ -86,25 +135,26 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   ownHandleSubmit: (values, userId, router) => {
     // Push new game to firebase
-    dispatch(gamesActions.createGame(
-      {
-        started: false,
-        createdBy: userId,
-        configuration: { ...values }
-      },
-      userId,
-      router
-    ));
+    dispatch(
+      gamesActions.createGame(
+        {
+          started: false,
+          createdBy: userId,
+          configuration: { ...values }
+        },
+        userId,
+        router
+      )
+    );
   }
 });
 
-const connectedCreateGame = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CreateGame);
+const connectedCreateGame = connect(mapStateToProps, mapDispatchToProps)(
+  CreateGame
+);
 
 export default reduxForm({
-  form: 'newGame',
+  form: "newGame",
   initialValues: {
     playersCount: 2,
     points: 15,

@@ -4,7 +4,7 @@ import {
   SIGN_IN_ERROR,
   SIGN_OUT_SUCCESS,
   INIT_AUTH
-} from './actionTypes';
+} from "./actionTypes";
 
 const initialState = {
   authenticated: false,
@@ -14,7 +14,6 @@ const initialState = {
 
 const user = (state = Object.assign({}, initialState), action) => {
   switch (action.type) {
-
     case SIGN_IN_START:
       return Object.assign({}, state, {
         authenticated: false,

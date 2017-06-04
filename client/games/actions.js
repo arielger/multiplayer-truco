@@ -1,19 +1,19 @@
-import { firebaseDatabase } from '../firebase';
+import { firebaseDatabase } from "../firebase";
 import {
   LOAD_GAMES,
   UNLOAD_GAMES,
   CREATE_GAME_REQUESTED,
   CREATE_GAME_FULFILLED,
   CREATE_GAME_REJECTED
-} from './actionTypes';
+} from "./actionTypes";
 
-const gamesRef = firebaseDatabase.ref('games');
+const gamesRef = firebaseDatabase.ref("games");
 
 // Load and unload games
 
 export function loadGames() {
-  return (dispatch) => {
-    gamesRef.on('value', (snapshot) => {
+  return dispatch => {
+    gamesRef.on("value", snapshot => {
       dispatch({
         type: LOAD_GAMES,
         payload: snapshot.val()
@@ -38,7 +38,7 @@ function createGameFulfilled() {
 }
 
 function createGameRejected(error) {
-  console.error('ERROR creating new game: ', error); // eslint-disable-line no-console
+  console.error("ERROR creating new game: ", error); // eslint-disable-line no-console
   return {
     type: CREATE_GAME_REJECTED,
     payload: error
@@ -46,16 +46,17 @@ function createGameRejected(error) {
 }
 
 export function createGame(game, userId, router) {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(createGameRequested());
 
-    gamesRef.push(game)
-      .then((data) => {
+    gamesRef
+      .push(game)
+      .then(data => {
         dispatch(createGameFulfilled());
         data.ref.onDisconnect().remove();
         router.push(`/partida/${data.key}`);
       })
-      .catch((error) => {
+      .catch(error => {
         dispatch(createGameRejected(error));
       });
   };

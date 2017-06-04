@@ -1,10 +1,10 @@
-import React, { PropTypes } from 'react';
-import { CreateGame, GameList } from '../';
-import styles from './index.sass';
+import React, { PropTypes } from "react";
+import { CreateGame, GameList } from "../";
+import styles from "./index.sass";
 
 const Home = ({ createGame }) =>
   <div className="container">
-    { createGame && <CreateGame /> }
+    {createGame && <CreateGame />}
     <div className={styles.homeContainer}>
       <GameList />
     </div>

@@ -1,10 +1,11 @@
-import { selectors as usersSelectors } from '../users';
+import { selectors as usersSelectors } from "../users";
 
 // Get all games from the redux store (add id key to the game object)
-const getAllGames = state => state.games.allIds.map(id => ({
-  id,
-  ...state.games.byId[id]
-}));
+const getAllGames = state =>
+  state.games.allIds.map(id => ({
+    id,
+    ...state.games.byId[id]
+  }));
 
 // Return a list of all players for a specified game
 const getGamePlayers = (state, game) => {
@@ -15,12 +16,13 @@ const getGamePlayers = (state, game) => {
   );
 };
 
-export const getGameUIList = (state) => {
+export const getGameUIList = state => {
   const games = getAllGames(state);
 
-  return games.map((game) => {
+  return games.map(game => {
     const players = getGamePlayers(state, game);
-    const creatorAvatar = usersSelectors.getUserById(state, game.createdBy).avatar;
+    const creatorAvatar = usersSelectors.getUserById(state, game.createdBy)
+      .avatar;
 
     return {
       ...game,

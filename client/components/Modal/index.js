@@ -1,12 +1,12 @@
-import React, { PropTypes } from 'react';
-import ReactModal from 'react-modal';
-import styles from './index.sass';
+import React, { PropTypes } from "react";
+import ReactModal from "react-modal";
+import styles from "./index.sass";
 
 class Modal extends React.Component {
   constructor() {
     super();
 
-    ReactModal.setAppElement('body');
+    ReactModal.setAppElement("body");
   }
   render() {
     const { isOpen, children } = this.props;
