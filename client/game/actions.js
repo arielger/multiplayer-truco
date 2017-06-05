@@ -53,6 +53,10 @@ export function joinGame(userId, gameId) {
       gameRef
         .once("value")
         .then(snapshot => {
+          if (!snapshot.exists()) {
+            return Promise.reject(`There is no game with the id of ${gameId}`);
+          }
+
           const game = snapshot.val();
           const newPlayerKey = gamePlayersRef.push().key;
           const updates = {

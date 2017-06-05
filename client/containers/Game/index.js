@@ -10,14 +10,21 @@ class Game extends Component {
   constructor(props) {
     super();
 
+    this.state = {
+      loadingError: false
+    };
+
     this.gameId = props.match.params.gameId;
   }
   componentDidMount() {
     const { userId, joinGame } = this.props;
 
     joinGame(userId, this.gameId)
-      .then(userKey => console.log(userKey))
-      .catch(error => console.log(error));
+      .then(userKey => console.log("OK", userKey))
+      .catch(error => {
+        this.setState({ loadingError: true });
+        console.log("ERROR", error);
+      });
   }
   componentWillUnmount() {
     const { userId, game, leaveGame } = this.props;
@@ -26,6 +33,8 @@ class Game extends Component {
   }
   render() {
     const { game, players } = this.props;
+
+    if (this.state.loadingError) return <h1>There is no game with that ID.</h1>;
 
     if (!game) return <h1>Game is loading ...</h1>;
 
