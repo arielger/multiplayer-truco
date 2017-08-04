@@ -1,9 +1,9 @@
 import React, { PropTypes } from "react";
-import { Link } from "react-router-dom";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { Modal } from "../../components/";
 import { actions as gamesActions } from "../../games";
+import { actions as UIActions } from "../../ui";
 import styles from "./index.sass";
 
 const RadioButtonField = ({ name, id, value, icon }) =>
@@ -30,7 +30,11 @@ RadioButtonField.propTypes = {
   icon: PropTypes.string.isRequired
 };
 
-const CreateGame = ({ handleSubmit, ownHandleSubmit, userId }, context) =>
+const playersCountOptions = [2, 4, 6];
+const pointsOptions = [15, 30];
+const waitingTimeOptions = [20, 40];
+
+const CreateGame = ({ handleSubmit, ownHandleSubmit, closeModal, userId }, context) =>
   <div>
     <Modal isOpen>
       <div className={styles.createGameModal}>
@@ -45,66 +49,55 @@ const CreateGame = ({ handleSubmit, ownHandleSubmit, userId }, context) =>
             Players
           </label>
           <div className={`row ${styles.inputGroupContainer}`}>
-            <RadioButtonField
-              name="playersCount"
-              id="players-count-2"
-              value={2}
-              icon="users"
-            />
-            <RadioButtonField
-              name="playersCount"
-              id="players-count-4"
-              value={4}
-              icon="users"
-            />
-            <RadioButtonField
-              name="playersCount"
-              id="players-count-6"
-              value={6}
-              icon="users"
-            />
+            { playersCountOptions.map(opt =>
+              <RadioButtonField
+                name="playersCount"
+                id={`players-count-${opt}`}
+                key={`players-count-${opt}`}
+                value={opt}
+                icon="users"
+              />  
+            )}
           </div>
 
           <label className={styles.inputGroupLabel} htmlFor="points">
             Points to win
           </label>
           <div className={`row ${styles.inputGroupContainer}`}>
-            <RadioButtonField
-              name="points"
-              id="points-15"
-              value={15}
-              icon="star"
-            />
-            <RadioButtonField
-              name="points"
-              id="points-30"
-              value={30}
-              icon="star"
-            />
+            { pointsOptions.map(opt =>
+              <RadioButtonField
+                name="points"
+                id={`points-${opt}`}
+                key={`points-${opt}`}
+                value={opt}
+                icon="star"
+              />  
+            )}
           </div>
 
           <label className={styles.inputGroupLabel} htmlFor="waitingTime">
             Waiting time
           </label>
           <div className={`row ${styles.inputGroupContainer}`}>
-            <RadioButtonField
-              name="waitingTime"
-              id="waiting-time-20"
-              value={20}
-              icon="clock-o"
-            />
-            <RadioButtonField
-              name="waitingTime"
-              id="waiting-time-40"
-              value={40}
-              icon="clock-o"
-            />
+            { waitingTimeOptions.map(opt =>
+              <RadioButtonField
+                name="waitingTime"
+                id={`waiting-time-${opt}`}
+                key={`waiting-time-${opt}`}
+                value={opt}
+                icon="clock-o"
+              />
+            )}
           </div>
 
           <div className={styles.btnContainer}>
-            <Link to="/">
-              <button className={styles.cancelBtn}>Cancelar</button>
-            </Link>
+            <button
+              type="button"
+              className={styles.cancelBtn}
+              onClick={closeModal}
+            >
+              Cancelar
+            </button>
             <input
               className={styles.createGameBtn}
               type="submit"
@@ -119,6 +112,7 @@ const CreateGame = ({ handleSubmit, ownHandleSubmit, userId }, context) =>
 CreateGame.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   ownHandleSubmit: PropTypes.func.isRequired,
+  closeModal: PropTypes.func.isRequired,
   userId: PropTypes.string.isRequired
 };
 
@@ -146,7 +140,8 @@ const mapDispatchToProps = dispatch => ({
         router
       )
     );
-  }
+  },
+  closeModal: () => dispatch(UIActions.closeCreateGameModal())
 });
 
 const connectedCreateGame = connect(mapStateToProps, mapDispatchToProps)(

@@ -1,16 +1,18 @@
 import { combineReducers } from "redux";
 import { reducer as form } from "redux-form";
-import { reducer as gameReducer } from "./game";
-import { reducer as gamesReducer } from "./games";
-import { reducer as userReducer } from "./user";
-import { reducer as usersReducer } from "./users";
+import { reducer as ui } from "./ui";
+import { reducer as game } from "./game";
+import { reducer as games } from "./games";
+import { reducer as user } from "./user";
+import { reducer as users } from "./users";
 
 const reducer = combineReducers({
-  game: gameReducer,
-  games: gamesReducer,
-  user: userReducer,
-  users: usersReducer,
-  form
+  game,
+  games,
+  user,
+  users,
+  form,
+  ui
 });
 
 export default reducer;

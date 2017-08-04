@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import { actions as userActions } from "../../user";
+import { actions as UIActions } from "../../ui";
 import styles from "./index.sass";
 
 // Generate random avatar with Adorable API
@@ -25,7 +25,7 @@ class Header extends Component {
     });
   }
   render() {
-    const { avatar, uid, signOut } = this.props;
+    const { avatar, uid, signOut, showCreateGameModal } = this.props;
     const avatarSrc = avatar || generateRandomAvatarURL(uid);
 
     return (
@@ -35,9 +35,12 @@ class Header extends Component {
             <div className="col-xs-12">
               <h1 className={styles.title}>Truco</h1>
               <div className={styles.rightContainer}>
-                <Link to="/crear-partida">
-                  <button className={styles.newGameBtn}>Create new game</button>
-                </Link>
+                <button
+                  className={styles.newGameBtn}
+                  onClick={showCreateGameModal}
+                >
+                  Create new game
+                </button>
                 <div className={styles.user} onClick={this.toggleDropdown}>
                   <span className={styles.userCaret} />
                   <img
@@ -62,7 +65,8 @@ class Header extends Component {
 Header.propTypes = {
   avatar: PropTypes.string,
   uid: PropTypes.string,
-  signOut: PropTypes.func.isRequired
+  signOut: PropTypes.func.isRequired,
+  showCreateGameModal: PropTypes.func.isRequired
 };
 
 // Connect
@@ -73,7 +77,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  signOut: userActions.signOut
+  signOut: userActions.signOut,
+  showCreateGameModal: UIActions.showCreateGameModal
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

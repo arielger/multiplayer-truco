@@ -30,12 +30,6 @@ const App = ({ isAuthenticated }) =>
       />
       <RouteAuthenticated
         isAuthenticated={isAuthenticated}
-        path="/crear-partida"
-        exact
-        render={() => <Home createGame />}
-      />
-      <RouteAuthenticated
-        isAuthenticated={isAuthenticated}
         path="/partida/:gameId"
         exact
         component={Game}

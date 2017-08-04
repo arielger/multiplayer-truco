@@ -1,17 +1,34 @@
-import React, { PropTypes } from "react";
+import React, { PropTypes, Component } from "react";
+import { connect } from "react-redux";
 import { CreateGame, GameList } from "../";
 import styles from "./index.sass";
+import { actions as UIActions } from "../../ui";
 
-const Home = ({ createGame }) =>
-  <div className="container">
-    {createGame && <CreateGame />}
-    <div className={styles.homeContainer}>
-      <GameList />
-    </div>
-  </div>;
+class Home extends Component {
+  componentWillUnmount() {
+    this.props.dispatch(UIActions.closeCreateGameModal());
+  }
+  render() {
+    const { showCreateGameModal } = this.props;
+
+    return (
+      <div className="container">
+        {showCreateGameModal && <CreateGame />}
+        <div className={styles.homeContainer}>
+          <GameList />
+        </div>
+      </div>
+    );
+  }
+}
 
 Home.propTypes = {
-  createGame: PropTypes.bool
+  showCreateGameModal: PropTypes.bool.isRequired,
+  dispatch: PropTypes.func.isRequired
 };
 
-export default Home;
+const mapStateToProps = state => ({
+  showCreateGameModal: state.ui.showCreateGameModal
+});
+
+export default connect(mapStateToProps)(Home);
